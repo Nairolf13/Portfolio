@@ -3,6 +3,8 @@ import Home from "./Components/Home";
 import About from "./Components/About";
 import Projects from "./Components/Projects";
 import Contact from "./Components/Contact";
+import MenuBurger from "./Components/MenuBurger"; 
+import logo from '../src/Assets/imgs/LogoBF.webp';
 
 function App() {
   const [currentSection, setCurrentSection] = useState("home");
@@ -15,41 +17,13 @@ function App() {
     <div className="flex bg-vanta-custom flex-col min-h-screen">
       <header className="fixed top-0 left-0 w-full z-50 bg-gray-900 text-white p-4 h-20">
         <nav className="flex justify-between items-center w-full h-full">
-          <h1 className="text-2xl font-bold">Bricchi Florian</h1>
-          <ul className="flex gap-8 ml-auto">
-            <li>
-              <button
-                onClick={() => handleNavigation("home")}
-                className="hover:text-clr transition duration-300"
-              >
-                Accueil
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => handleNavigation("about")}
-                className="hover:text-clr transition duration-300"
-              >
-                À propos
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => handleNavigation("projects")}
-                className="hover:text-clr transition duration-300"
-              >
-                Projets
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => handleNavigation("contact")}
-                className="hover:text-clr transition duration-300"
-              >
-                Contact
-              </button>
-            </li>
-          </ul>
+        <img
+            src={logo}
+            alt="Logo"
+            className="h-16 w-16 rounded-full"
+          />
+          
+          <MenuBurger handleNavigation={handleNavigation} />
         </nav>
       </header>
 
@@ -57,11 +31,11 @@ function App() {
         {currentSection === "home" && (
           <div>
             <Home />
-            <div className="mb-16" /> {/* Marge entre Home et About */}
+            <div className="mb-16" />
             <About />
-            <div className="mb-16" /> {/* Marge entre About et Projects */}
+            <div className="mb-16" />
             <Projects />
-            <div className="mb-16" /> {/* Marge entre Projects et Contact */}
+            <div className="mb-16" />
             <Contact />
           </div>
         )}

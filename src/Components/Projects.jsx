@@ -1,5 +1,5 @@
 import React from "react";
-import "../Assets/css/Projects.css"; // Assurez-vous d'importer le fichier CSS contenant vos styles
+import "../Assets/css/Projects.css";
 
 function Projects() {
   return (
@@ -32,14 +32,17 @@ function Projects() {
             <div className="back">
               <div className="back-content">
                 <svg
-                  stroke="#ffffff"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 50 50"
+                  viewBox="0 0 24 24"
                   height="50px"
                   width="50px"
-                  fill="#ffffff"
+                  fill="none"
                 >
-                  <path d="M20.84375..."></path>
+                  <path
+                    d="M10 6 L16 12 L10 18"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
                 </svg>
                 <strong className="text-white">Voir le projet</strong>
               </div>
@@ -71,14 +74,17 @@ function Projects() {
             <div className="back">
               <div className="back-content">
                 <svg
-                  stroke="#ffffff"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 50 50"
+                  viewBox="0 0 24 24"
                   height="50px"
                   width="50px"
-                  fill="#ffffff"
+                  fill="none"
                 >
-                  <path d="M20.84375..."></path>
+                  <path
+                    d="M10 6 L16 12 L10 18"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
                 </svg>
                 <strong className="text-white">Voir le projet</strong>
               </div>
@@ -110,14 +116,17 @@ function Projects() {
             <div className="back">
               <div className="back-content">
                 <svg
-                  stroke="#ffffff"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 50 50"
+                  viewBox="0 0 24 24"
                   height="50px"
                   width="50px"
-                  fill="#ffffff"
+                  fill="none"
                 >
-                  <path d="M20.84375..."></path>
+                  <path
+                    d="M10 6 L16 12 L10 18"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
                 </svg>
                 <strong className="text-white">Voir le projet</strong>
               </div>
@@ -149,14 +158,17 @@ function Projects() {
             <div className="back">
               <div className="back-content">
                 <svg
-                  stroke="#ffffff"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 50 50"
+                  viewBox="0 0 24 24"
                   height="50px"
                   width="50px"
-                  fill="#ffffff"
+                  fill="none"
                 >
-                  <path d="M20.84375..."></path>
+                  <path
+                    d="M10 6 L16 12 L10 18"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
                 </svg>
                 <strong className="text-white">Voir le projet</strong>
               </div>
@@ -188,14 +200,17 @@ function Projects() {
             <div className="back">
               <div className="back-content">
                 <svg
-                  stroke="#ffffff"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 50 50"
+                  viewBox="0 0 24 24"
                   height="50px"
                   width="50px"
-                  fill="#ffffff"
+                  fill="none"
                 >
-                  <path d="M20.84375..."></path>
+                  <path
+                    d="M10 6 L16 12 L10 18"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
                 </svg>
                 <strong className="text-white">Voir le projet</strong>
               </div>
@@ -227,14 +242,17 @@ function Projects() {
             <div className="back">
               <div className="back-content">
                 <svg
-                  stroke="#ffffff"
                   xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 50 50"
+                  viewBox="0 0 24 24"
                   height="50px"
                   width="50px"
-                  fill="#ffffff"
+                  fill="none"
                 >
-                  <path d="M20.84375..."></path>
+                  <path
+                    d="M10 6 L16 12 L10 18"
+                    stroke="#ffffff"
+                    strokeWidth="2"
+                  />
                 </svg>
                 <strong className="text-white">Voir le projet</strong>
               </div>

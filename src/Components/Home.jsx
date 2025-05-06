@@ -70,7 +70,7 @@ function Home() {
         <a href="https://www.linkedin.com/in/florian-bricchi-428820322/" target="_blank" rel="noopener noreferrer" className="text-3xl hover:text-clr transition">
           <FaLinkedin />
         </a>
-        <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-3xl hover:text-clr transition">
+        <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-3xl hover:text-clr transition">
           <FaTwitter />
         </a>
         <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" className="text-3xl hover:text-clr transition">
