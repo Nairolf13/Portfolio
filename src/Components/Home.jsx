@@ -1,12 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { FaGithub, FaLinkedin, FaTwitter, FaInstagram } from "react-icons/fa";
 import gsap from "gsap";
 import SplitType from "split-type";
 
 function Home() {
   const textRef = useRef();
-  const vantaRef = useRef(null);
-  const [vantaEffect, setVantaEffect] = useState(null);
+
 
   useEffect(() => {
     const split = new SplitType(textRef.current, { types: "chars, words, lines" });
@@ -25,34 +24,9 @@ function Home() {
     };
   }, []);
 
-  useEffect(() => {
-    // Vérifier si Vanta est chargé
-    if (!vantaEffect && window.VANTA) {
-      const effect = window.VANTA.BIRDS({
-        el: vantaRef.current,
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.0,
-        minWidth: 200.0,
-        scale: 1.0,
-        scaleMobile: 1.0,
-        backgroundColor: 0x7192f,
-        color: 0xff3f81,
-        color2: 0xffffff,
-        size: 1.0,
-      });
-      setVantaEffect(effect);
-    }
-
-    return () => {
-      if (vantaEffect) vantaEffect.destroy();
-    };
-  }, [vantaEffect]);
 
   return (
     <section
-      ref={vantaRef}
       className="min-h-screen w-full flex flex-col justify-center items-center text-white px-4"
     >
       <h1 ref={textRef} className="text text-7xl font-extrabold mb-20 text-center">

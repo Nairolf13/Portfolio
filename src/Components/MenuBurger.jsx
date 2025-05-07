@@ -19,7 +19,6 @@ function MenuBurger({ handleNavigation }) {
 
   return (
     <>
-      {/* Mobile Burger Button */}
       <div className="md:hidden fixed top-4 right-4 z-[999]">
         <button
           onClick={toggleMenu}
