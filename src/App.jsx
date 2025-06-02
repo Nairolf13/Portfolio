@@ -23,11 +23,17 @@ function App() {
       const loadVanta = async () => {
         if (!window.THREE) {
           const threeModule = await import('three');
-          // Vanta attend un namespace complet avec toutes les classes
           window.THREE = { ...threeModule, ...threeModule.default };
         }
         if (!window.VANTA || !window.VANTA.BIRDS) {
-          await import('/public/vanta/ vanta.birds.min.js');
+          await new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = '/vanta/vanta.birds.min.js';
+            script.async = true;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.body.appendChild(script);
+          });
         }
         if (window.VANTA && window.VANTA.BIRDS) {
           const effect = window.VANTA.BIRDS({

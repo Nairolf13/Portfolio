@@ -11,15 +11,15 @@ function Projects() {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerWidth > 768) return; // Désactiver la logique mobile sur desktop
+      if (window.innerWidth > 768) return; 
       cardsRef.current.forEach((card, index) => {
         if (!card) return;
         const rect = card.getBoundingClientRect();
         const isCentered =
-          rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2; // La carte est centrée
+          rect.top < window.innerHeight / 2 && rect.bottom > window.innerHeight / 2; 
 
         if (isCentered) {
-          setActiveCard(index); // Afficher le front lorsque la carte est centrée
+          setActiveCard(index);
         }
       });
     };

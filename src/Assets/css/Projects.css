@@ -65,6 +65,16 @@
   }
 
   @media (max-width: 768px) {
+    .card {
+      width: 100vw;
+      max-width: 700px;
+      box-sizing: border-box;
+      margin-left: 50%;
+      transform: translateX(-50%);
+      height: 320px; /* Augmente la hauteur sur mobile */
+      display: block;
+    }
+
     .card:hover .content {
       transform: none; /* Désactiver le retournement au survol sur mobile */
     }
@@ -75,6 +85,18 @@
 
     .card .content {
       transform: rotateY(180deg); /* Afficher le back par défaut sur mobile */
+    }
+  }
+  
+  @media (min-width: 769px) {
+    .card .content {
+      transform: rotateY(180deg);
+    }
+    .card.show-front .content {
+      transform: rotateY(0deg);
+    }
+    .card:hover .content {
+      transform: rotateY(0deg);
     }
   }
   
