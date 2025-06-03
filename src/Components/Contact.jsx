@@ -29,7 +29,7 @@ function Contact() {
 
   return (
     <section id="contact" className="p-16 text-center relative z-10">
-      <h2 className="text-3xl font-semibold mb-8 text-white bg-[#1a1a1a80] backdrop-blur-xl rounded-xl inline-block px-6 py-3">Contactez-moi</h2>
+      <h2 className="text-3xl font-semibold mb-8 text-white bg-[#1a1a1a80] backdrop-blur-xl rounded-xl inline-block px-6 py-3 font-orbitron">Contactez-moi</h2>
       <div className="w-full flex justify-center">
         <div className="w-full max-w-md bg-about-bg backdrop-blur-xl rounded-xl p-6">
           <form

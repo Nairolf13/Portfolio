@@ -66,7 +66,7 @@ function About() {
   return (
     <>
       <div className="w-full flex flex-col items-center mt-8 mb-20">
-        <h2 className="text-4xl font-bold text-white mb-2 text-center">
+        <h2 className="text-4xl font-bold text-white mb-2 text-center font-orbitron">
           À propos de moi
         </h2>
         <div className="w-24 h-[2px] bg-[#00ff9d]"></div>
@@ -77,7 +77,7 @@ function About() {
         className="flex justify-center min-h-screen py-[8vh] px-[4vw] relative touch-pan-y overflow-hidden"
         style={{ background: "none" }}
       >
-        <div className="max-w-3xl w-full about-content overflow-hidden relative flex mx-auto px-[4vw]">
+        <div className="max-w-5xl w-full about-content overflow-hidden relative flex mx-auto px-[4vw]">
           <div
             className="about-vertical-line-container"
             style={{

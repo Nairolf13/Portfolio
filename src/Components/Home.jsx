@@ -29,7 +29,7 @@ function Home() {
     <section
       className="min-h-screen w-full flex flex-col justify-center items-center text-white px-4"
     >
-      <h1 ref={textRef} className="text text-7xl font-extrabold mb-20 text-center">
+      <h1 ref={textRef} className="text text-7xl font-extrabold mb-20 text-center font-orbitron">
         Bricchi Florian
       </h1>
 

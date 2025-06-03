@@ -30,7 +30,9 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "eslintConfig": {
     "extends": [
@@ -52,7 +54,9 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.0.0",
+    "gh-pages": "^6.3.0",
     "postcss-preset-env": "^10.1.6",
     "vite": "^4.3.9"
-  }
+  },
+  "homepage": "https://nairolf13.github.io/Portfolio"
 }

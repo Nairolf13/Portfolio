@@ -9,6 +9,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'orbitron': ['Orbitron', 'sans-serif'],
+      },
       colors: {
         clr: "#58bc82",           // équivalent de --clr
         "clr-alpha": "#9c9c9c60", // équivalent de --clr-alpha (rgba)

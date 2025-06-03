@@ -3,6 +3,7 @@ import Home from "./Components/Home";
 import About from "./Components/About";
 import Projects from "./Components/Projects";
 import Contact from "./Components/Contact";
+import Footer from "./Components/Footer";
 import MenuBurger from "./Components/MenuBurger";
 import logo from '../src/Assets/imgs/LogoBF.webp';
 import Loader from "./Loader.jsx"; 
@@ -135,9 +136,7 @@ function App() {
         )}
       </main>
 
-      <footer className="bg-transparent text-white text-center py-7 mt-auto backdrop-blur-sm">
-        <p>&copy; 2025 Bricchi Florian</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
