@@ -25,7 +25,6 @@ function App() {
 
   useEffect(() => {
     if (!showLoader && vantaRef.current) {
-      // Détruire l'effet précédent s'il existe
       if (vantaEffect) {
         vantaEffect.destroy();
         setVantaEffect(null);
@@ -53,21 +52,20 @@ function App() {
           });
         }
         if (window.VANTA && window.VANTA.BIRDS) {
-          // Configuration de la couleur de fond selon le thème (garder les couleurs des oiseaux originales)
           const backgroundColor = theme === 'light' ? 0xf8f9fa : 0x07192f;
 
           const effect = window.VANTA.BIRDS({
             el: vantaRef.current,
             mouseControls: true,
             touchControls: true,
-            gyroControls: false,
+            gyroControls: true,
             minHeight: 200.0,
             minWidth: 200.0,
             scale: 1.0,
             scaleMobile: 1.0,
             backgroundColor: backgroundColor,
-            color: 0xff3f81,          // Couleur des oiseaux - inchangée
-            color2: 0xffffff,         // Couleur secondaire des oiseaux - inchangée
+            color: 0xff3f81,         
+            color2: 0xffffff,         
             separation: 60,        
             alignment: 40,        
             cohesion: 15,          
@@ -83,7 +81,7 @@ function App() {
         setVantaEffect(null);
       }
     };
-  }, [showLoader, theme]); // Ajout de 'theme' aux dépendances
+  }, [showLoader, theme]);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;

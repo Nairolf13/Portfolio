@@ -23,7 +23,8 @@ function MenuBurger({ handleNavigation }) {
         {!isOpen && (
           <button
             onClick={toggleMenu}
-            className="text-white text-1xl focus:outline-none"
+            className="text-1xl focus:outline-none"
+            style={{ color: 'var(--text-primary)' }}
           >
             <HiOutlineMenu />
           </button>
@@ -33,11 +34,12 @@ function MenuBurger({ handleNavigation }) {
           <div className="about-blur-bg rounded-xl p-6 relative">
             <button
               onClick={closeMenu}
-              className="absolute top-2 right-2 text-white text-xl focus:outline-none hover:text-gray-300 transition-colors z-10"
+              className="absolute top-2 right-2 text-xl focus:outline-none hover:opacity-70 transition-all z-10"
+              style={{ color: 'var(--text-primary)' }}
             >
               <HiOutlineX />
             </button>
-            <ul className="ul text-white text-xs space-y-1 flex flex-col items-center mt-3">
+            <ul className="ul text-xs space-y-1 flex flex-col items-center mt-3" style={{ color: 'var(--text-primary)' }}>
               {sections.map((section) => (
                 <li key={section} className="li mb-0 w-full">
                   <button
