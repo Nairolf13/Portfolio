@@ -89,11 +89,11 @@ function Projects() {
             },
             {
               id: 5,
-              title: "Progetto 789",
-              description: "Description courte du projet.",
+              title: "Absento",
+              description: "Description Site de gestion des absences et des planning pour les entreprises du projet.",
               frontImage: getImg('AbsentoLending.webp'),
               backImage: getImg('Absento.webp'),
-              link: "",
+              link: "http://51.91.208.111:5888/",
             },
           ].map((project) => (
             <div
