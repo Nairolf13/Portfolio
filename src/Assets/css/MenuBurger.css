@@ -89,16 +89,29 @@
 
 @media (max-width: 767px) {
     .button {
-        font-size: 16px;
-        padding: 6px 20px;
+        font-size: 14px;
+        padding: 6px 16px;
         height: 32px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .button::before {
+        left: 10px;
     }
 
     .ul {
-        padding: 6px 10px;
+        padding: 0;
+        margin: 0;
+        width: 120px;
+        min-width: 120px;
     }
 
     .li {
-        margin-bottom: 4px;
+        margin-bottom: 1px;
+        width: 100%;
     }
 }

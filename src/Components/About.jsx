@@ -1,19 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import "../Assets/css/About.css";
 
-function About() {
+function About({ handleNavigation }) {
   const points = [
     "Développeur web passionné, je conçois des expériences numériques modernes et intuitives.",
-    "Expert en React, Tailwind CSS et JavaScript, avec une forte sensibilité UX/UI.",
-    "Je crois au web comme outil pour raconter des histoires et transmettre des émotions.",
+    "Je suis polyvalent et j'aime concevoir des applications utiles et accessibles, avec une attention particulière à l'expérience utilisateur.",
+    "Je vois le web comme un moyen de créer du lien, de partager et de rendre service au quotidien.",
     "Je crée des interfaces accessibles, humaines et techniquement solides.",
     "Autonome et proactif, je prends plaisir à travailler sur des projets variés, seul ou en équipe.",
     "Je suis constamment en veille pour innover, progresser et livrer des projets toujours plus aboutis.",
     "Chaque projet est pour moi une opportunité d'apprendre et d'évoluer.",
     "J'ai à cœur de transformer des idées en solutions concrètes et efficaces.",
     "Ma rigueur et ma curiosité me poussent à dépasser les attentes à chaque réalisation.",
-    "Vous cherchez un développeur impliqué, créatif et fiable ? Parlons-en !",
+    "Vous cherchez un développeur impliqué, créatif et fiable ?",
   ];
 
   const sectionRef = useRef(null);
@@ -65,36 +65,15 @@ function About() {
 
   return (
     <>
-      <div className="w-full flex flex-col items-center mt-8 mb-20">
-        <h2 className="text-4xl font-bold text-white mb-2 text-center font-orbitron">
-          À propos de moi
-        </h2>
-        <div className="w-24 h-[2px] bg-[#00ff9d]"></div>
-      </div>
       <section
         id="about"
         ref={sectionRef}
-        className="flex justify-center min-h-screen py-[8vh] px-[4vw] relative touch-pan-y overflow-hidden"
+        className="p-4 md:p-8 lg:p-16 relative z-10"
         style={{ background: "none" }}
       >
-        <div className="max-w-5xl w-full about-content overflow-hidden relative flex mx-auto px-[4vw]">
-          <div
-            className="about-vertical-line-container"
-            style={{
-              left: 0,
-              right: "auto",
-              minWidth: "8px",
-              maxWidth: "12px",
-              width: "1vw",
-              position: "absolute",
-              top: 0,
-              bottom: 0,
-              marginLeft: "0",
-              height: "100%", 
-              maxHeight: "inherit", 
-              overflow: "hidden", 
-            }}
-          >
+        <div className="w-full flex justify-center">
+          <div className="w-full max-w-7xl about-blur-bg about-specific relative">
+          <div className="about-vertical-line-container">
             <div className="about-vertical-line">
               <motion.div
                 className="about-vertical-glow"
@@ -107,7 +86,43 @@ function About() {
               />
             </div>
           </div>
-          <div className="flex-1">
+          <div className="w-full about-content overflow-hidden relative flex">
+            <div className="flex-1 relative">
+              <div className="w-full flex flex-col items-center mb-8 pt-8 pb-2">
+                <h2 className="text-3xl font-semibold text-white text-center font-orbitron">
+                  À propos de moi
+                </h2>
+                <div className="w-24 h-[2px] bg-[#00ff9d] mt-2"></div>
+                <div className="divide-y divide-[#222]/60 w-full overflow-hidden mt-8 px-2 sm:px-4 md:px-6 lg:px-8">
+                {points.map((point, index) => (
+                  <div key={index} className="flex items-center gap-6 py-8">
+                    <div
+                      className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#23232b] border border-[#3de6cb] flex items-center justify-center text-[#e6f9f7] font-semibold text-lg"
+                      style={{ borderWidth: "1.5px" }}
+                    >
+                      {index + 1}
+                    </div>
+                    <p className="text-white text-lg leading-relaxed text-left">
+                      {index === points.length - 1 ? (
+                        <span>
+                          {point}
+                          <button 
+                            onClick={() => handleNavigation && handleNavigation('contact')}
+                            className="heartbeat-link ml-2 bg-transparent border-none cursor-pointer"
+                          >
+                            Parlons-en !
+                          </button>
+                        </span>
+                      ) : (
+                        point
+                      )}
+                    </p>
+                  </div>
+                ))}
+                <div className="w-full h-px bg-[#222]/60" />
+                </div>
+              </div>
+            </div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -116,23 +131,8 @@ function About() {
             >
               <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-[2px] bg-[#00ff9d]"></div>
             </motion.div>
-            <div className="divide-y divide-[#222]/60 about-blur-bg overflow-hidden">
-              {points.map((point, index) => (
-                <div key={index} className="flex items-center gap-6 py-8">
-                  <div
-                    className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#23232b] border border-[#3de6cb] flex items-center justify-center text-[#e6f9f7] font-semibold text-lg"
-                    style={{ borderWidth: "1.5px" }}
-                  >
-                    {index + 1}
-                  </div>
-                  <p className="text-white text-lg leading-relaxed text-left">
-                    {point}
-                  </p>
-                </div>
-              ))}
-              <div className="w-full h-px bg-[#222]/60" />
-            </div>
           </div>
+        </div>
         </div>
       </section>
     </>

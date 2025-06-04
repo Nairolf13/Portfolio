@@ -29,7 +29,13 @@ function App() {
         if (!window.VANTA || !window.VANTA.BIRDS) {
           await new Promise((resolve, reject) => {
             const script = document.createElement('script');
-            script.src = '/vanta/vanta.birds.min.js';
+            // Correction du chemin pour GitHub Pages (détection manuelle)
+            let vantaPath = '/vanta/vanta.birds.min.js';
+            if (window.location.hostname === 'nairolf13.github.io') {
+              vantaPath = '/Portfolio/vanta/vanta.birds.min.js';
+            }
+            script.src = vantaPath;
+            console.log('Chargement du script Vanta depuis :', script.src);
             script.async = true;
             script.onload = resolve;
             script.onerror = reject;
@@ -121,7 +127,7 @@ function App() {
           <>
             <Home />
             <div className="mb-16" />
-            <About />
+            <About handleNavigation={handleNavigation} />
             <div className="mb-16" />
             <Projects />
             <div className="mb-16" />
@@ -129,9 +135,9 @@ function App() {
           </>
         ) : (
           <div className="transition-opacity duration-500">
-            {currentSection === "about" && <About />}
-            {currentSection === "projects" && <Projects />}
-            {currentSection === "contact" && <Contact />}
+            {currentSection === "about" && <div style={{ paddingTop: '80px' }}><About handleNavigation={handleNavigation} /></div>}
+            {currentSection === "projects" && <div style={{ paddingTop: '80px' }}><Projects /></div>}
+            {currentSection === "contact" && <div style={{ paddingTop: '80px' }}><Contact /></div>}
           </div>
         )}
       </main>

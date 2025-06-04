@@ -1,0 +1,7 @@
+/* Styles pour la section Contact - maintenant utilise .about-blur-bg comme les autres sections */
+
+@media (max-width: 768px) {
+  #contact {
+    margin-top: 5rem;
+  }
+}

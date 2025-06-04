@@ -1,17 +1,36 @@
 .about-vertical-line-container {
-    position: absolute;
-    left: 25%;
-    top: 0;
-    height: 100%;
-    width: 1vw;
-    min-width: 1px;
-    max-width: 10px;
-    z-index: 10000;
-    pointer-events: none;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    transition: left 0.2s cubic-bezier(0.4,0,0.2,1);
+  position: absolute;
+  left: 0 !important;
+  top: 0;
+  bottom: 0;
+  right: auto;
+  min-width: 8px;
+  max-width: 12px;
+  width: 1vw;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  transition: left 0.2s cubic-bezier(0.4,0,0.2,1);
+  margin-left: 0 !important;
+}
+
+.pl-vertical-bar {
+  padding-left: 3.5rem; 
+}
+
+@media (max-width: 768px) {
+  .pl-vertical-bar {
+    padding-left: 2rem; 
+  }
+  
+  .about-vertical-line-container {
+    width: 3vw;
+    min-width: 6px;
+    max-width: 8px;
+  }
 }
 
 .about-vertical-line {
@@ -64,31 +83,19 @@
 
 .about-blur-bg {
   background: rgba(0, 3, 1, 0.70);
-  backdrop-filter: blur(1vw);
-  -webkit-backdrop-filter: blur(1vw);
+  backdrop-filter: blur(2vw);
+  -webkit-backdrop-filter: blur(2vw);
   border-radius: 1rem;
   box-shadow: 0 0.5vw 2vw 0 rgba(0,0,0,0.18);
   padding: 2vw;
+  position: relative;
+  margin: 0 !important;
+  overflow: visible;
 }
 
-@media (max-width: 800px) {
-  .about-content {
-    padding-left: 1rem; 
-    padding-right: 1rem; 
-  }
-}
-
-@media (max-width: 600px) {
-  .about-content {
-    max-width: 100vw;
-    margin: 0 auto;
-    box-sizing: border-box;
-    padding-left: 1rem; 
-    padding-right: 1rem; 
-  }
-  .about-vertical-line-container {
-    width: 4vw;
-    min-width: 8px;
+@media (max-width: 768px) {
+  .about-blur-bg {
+    padding: 1rem;
   }
 }
 
@@ -99,4 +106,41 @@ body, #about {
 #about, .about-content, .about-blur-bg {
   overscroll-behavior: contain;
   touch-action: pan-y;
+}
+
+.about-specific .about-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  padding-left: 3.5rem !important;
+  padding-right: 3.5rem !important;
+}
+
+@media (max-width: 768px) {
+  .about-specific .about-content {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+  }
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.3); }
+  70% { transform: scale(1); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.2s infinite;
+}
+
+.heartbeat-link {
+  font-weight: bold;
+  color: #00ff9d;
+  display: inline-block;
+  animation: heartbeat 1.5s infinite;
+  transition: color 0.2s;
+}
+.heartbeat-link:hover, .heartbeat-link:focus {
+  color: #3de6cb;
 }
