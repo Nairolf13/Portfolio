@@ -1,8 +1,28 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import Modal from "./Modal";
 
 function Contact() {
   const form = useRef();
+  const [modalState, setModalState] = useState({
+    isOpen: false,
+    type: "success",
+    title: "",
+    message: "",
+  });
+
+  const showModal = (type, title, message) => {
+    setModalState({
+      isOpen: true,
+      type,
+      title,
+      message,
+    });
+  };
+
+  const closeModal = () => {
+    setModalState({ ...modalState, isOpen: false });
+  };
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -17,57 +37,73 @@ function Contact() {
       .then(
         (result) => {
           console.log("Message envoyé :", result.text);
-          alert("Message envoyé avec succès !");
+          showModal(
+            "success",
+            "Message envoyé !",
+            "Votre message a été envoyé avec succès. Je vous répondrai dans les plus brefs délais."
+          );
           form.current.reset();
         },
         (error) => {
           console.log("Erreur :", error.text);
-          alert("Une erreur s'est produite, veuillez réessayer.");
+          showModal(
+            "error",
+            "Erreur d'envoi",
+            "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer ou me contacter directement par email."
+          );
         }
       );
   };
 
   return (
-    <section id="contact" className="p-4 md:p-8 lg:p-16 text-center relative z-10">
+    <section
+      id="contact"
+      className="p-4 md:p-8 lg:p-16 text-center relative z-10"
+    >
       <div className="w-full flex justify-center">
         <div className="w-full max-w-7xl about-blur-bg rounded-xl p-4 sm:p-6 md:p-8 lg:p-20 flex flex-col items-center gap-8">
           <h2 className="text-3xl font-semibold text-white rounded-xl px-6 py-3 font-orbitron mx-auto w-fit text-center mb-8">
             Contactez-moi
           </h2>
+          
+          <div className="w-full text-center mb-8">
+            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
+              <strong className="text-green-400">
+                Actuellement à la recherche d'une alterance pour devenir
+                concepteur developpeur d'application ou d'un poste en CDI en
+                tant que Développeur Web
+              </strong>
+            </p>
+          </div>
+          
           <div className="flex flex-col md:flex-row w-full gap-12 items-stretch">
             <div className="md:w-1/2 w-full flex flex-col justify-center items-center text-center">
               <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
-                <strong className="text-green-400">
-                  Actuellement à la recherche d'un CDI en tant que Développeur Web
-                </strong>
-                <br />
-                <br />
-                Passionné par la création d’expériences numériques modernes, je
-                souhaite rejoindre une équipe dynamique pour contribuer à des projets
-                innovants, en front-end, back-end ou fullstack.
-                <br />
-                <br />
                 <span className="text-green-400 font-semibold">
                   Pourquoi me contacter&nbsp;?
                 </span>
                 <br />
-                • Expertise en React, Tailwind CSS, JavaScript, Node.js
+                Passionné par la création d’expériences numériques modernes, je
+                souhaite rejoindre une équipe dynamique pour contribuer à des
+                projets innovants, en front-end, back-end ou fullstack.
                 <br />
-                • Sensibilité UX/UI et rigueur technique
+                Développeur passionné créatif et méthodique
                 <br />
-                • Esprit d’équipe, autonomie et communication professionnelle
+                À l'écoute des besoins et force de proposition
+                <br />
+                Esprit d’équipe, autonomie et communication professionnelle
                 <br />
                 <br />
                 <span className="text-green-400 font-semibold">
                   Vous avez une opportunité&nbsp;?
                 </span>
                 <br />
-                N’hésitez pas à me solliciter pour un poste, une mission freelance ou
-                une collaboration technique.
+                N’hésitez pas à me solliciter pour un poste ou une collaboration sur vos projets .
                 <br />
                 <br />
                 <span className="italic">
-                  Je m’engage à répondre rapidement et avec sérieux à chaque message.
+                  Je m’engage à répondre rapidement et avec sérieux à chaque
+                  message.
                 </span>
               </p>
             </div>
@@ -143,6 +179,14 @@ function Contact() {
           </div>
         </div>
       </div>
+
+      <Modal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        type={modalState.type}
+        title={modalState.title}
+        message={modalState.message}
+      />
     </section>
   );
 }

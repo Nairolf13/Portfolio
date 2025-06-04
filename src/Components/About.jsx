@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { FaDownload } from "react-icons/fa";
 import "../Assets/css/About.css";
 
 function About({ handleNavigation }) {
@@ -120,6 +121,22 @@ function About({ handleNavigation }) {
                   </div>
                 ))}
                 <div className="w-full h-px bg-[#222]/60" />
+                
+                {/* Bouton CV */}
+                <div className="w-full flex justify-center pt-12 pb-8">
+                  <a 
+                    href="/Portfolio/CV_Bricchi_Florian.pdf" 
+                    download="CV_Florian_Bricchi.pdf"
+                    className="group relative inline-flex items-center gap-3 sm:gap-4 px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#00ff9d] to-[#3de6cb] text-white font-bold rounded-xl shadow-2xl hover:shadow-[0_0_30px_rgba(61,230,203,0.5)] transform hover:scale-110 transition-all duration-500 ease-out font-orbitron text-xs sm:text-sm animate-pulse hover:animate-none border-2 border-white/20"
+                  >
+                    <FaDownload className="text-xs sm:text-sm group-hover:animate-bounce drop-shadow-lg text-white" />
+                    <span className="drop-shadow-lg text-white">Télécharger mon CV</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    {/* Effet de brillance animé */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-xl transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                  </a>
+                </div>
+                
                 </div>
               </div>
             </div>

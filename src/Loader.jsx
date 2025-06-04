@@ -1,4 +1,3 @@
-import React from "react";
 import Lottie from "lottie-react";
 import animationData from "./Animation - 1746623409423.json"; 
 

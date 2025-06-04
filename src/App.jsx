@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Home from "./Components/Home";
 import About from "./Components/About";
 import Projects from "./Components/Projects";
@@ -56,9 +56,9 @@ function App() {
             backgroundColor: 0x07192f,
             color: 0xff3f81,
             color2: 0xffffff,
-            separation: 100,
-            alignment: 80,
-            cohesion: 5,
+            separation: 60,        
+            alignment: 40,        
+            cohesion: 15,          
           });
           setVantaEffect(effect);
         }
@@ -105,7 +105,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowLoader(false), 5000); 
+    const timer = setTimeout(() => setShowLoader(false), 3000); 
     return () => clearTimeout(timer);
   }, []);
 
