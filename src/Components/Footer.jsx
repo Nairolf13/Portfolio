@@ -15,7 +15,7 @@ function Footer() {
           
           <div className="social-links">
             <a
-              href="https://linkedin.com/in/bricchi-florian"
+              href="https://www.linkedin.com/in/florian-bricchi-428820322/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
@@ -33,7 +33,7 @@ function Footer() {
             </a>
             
             <a
-              href="https://github.com/bricchi-florian"
+              href="https://github.com/Nairolf13"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
@@ -69,7 +69,7 @@ function Footer() {
             </a>
             
             <a
-              href="mailto:contact@bricchi-florian.com"
+              href="mailto:bricchiflorianoutlook.com"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Email"

@@ -4,8 +4,7 @@ import About from "./Components/About";
 import Projects from "./Components/Projects";
 import Contact from "./Components/Contact";
 import Footer from "./Components/Footer";
-import MenuBurger from "./Components/MenuBurger";
-import logo from '../src/Assets/imgs/LogoBF.webp';
+import Header from "./Components/Header";
 import Loader from "./Loader.jsx"; 
 
 function App() {
@@ -17,6 +16,8 @@ function App() {
 
   const handleNavigation = (section) => {
     setCurrentSection(section);
+    setShowHeader(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   useEffect(() => {
@@ -75,16 +76,20 @@ function App() {
   useEffect(() => {
     let lastScrollY = window.scrollY;
     let ticking = false;
-    const delta = 10; 
+    const delta = 5; 
 
     const handleScroll = () => {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
-          if (Math.abs(currentScrollY - lastScrollY) > delta) {
+          
+          if (currentScrollY <= 100) {
+            setShowHeader(true);
+          }
+          else if (Math.abs(currentScrollY - lastScrollY) > delta) {
             if (currentScrollY < lastScrollY) {
               setShowHeader(true); 
-            } else if (currentScrollY > lastScrollY && currentScrollY > 0) {
+            } else if (currentScrollY > lastScrollY) {
               setShowHeader(false); 
             }
             lastScrollY = currentScrollY;
@@ -94,6 +99,7 @@ function App() {
         ticking = true;
       }
     };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -103,6 +109,10 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    setShowHeader(true);
+  }, [currentSection]);
+
   if (showLoader) {
     return <Loader />;
   }
@@ -111,16 +121,7 @@ function App() {
     <div className="relative min-h-screen">
       <div ref={vantaRef} className="fixed inset-0 -z-10"></div>
 
-      <header className={`fixed top-0 left-0 w-full z-50 bg-transparent text-white p-4 h-20 backdrop-blur-md transition-transform duration-300 translate-y-0 -translate-y-20 ${showHeader ? 'translate-y-0' : '-translate-y-20'}`}>
-        <nav className="flex justify-between items-center w-full h-full">
-          <img
-            src={logo}
-            alt="Logo"
-            className="h-16 w-16 rounded-full"
-          />
-          <MenuBurger handleNavigation={handleNavigation} />
-        </nav>
-      </header>
+      <Header showHeader={showHeader} handleNavigation={handleNavigation} />
 
       <main className="flex flex-col justify-between text-white relative">
         {currentSection === "home" ? (
