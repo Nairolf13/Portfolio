@@ -122,7 +122,6 @@ function About({ handleNavigation }) {
                 ))}
                 <div className="w-full h-px bg-[#222]/60" />
                 
-                {/* Bouton CV */}
                 <div className="w-full flex justify-center pt-12 pb-8">
                   <a 
                     href="/Portfolio/CV_Bricchi_Florian.pdf" 
@@ -132,7 +131,6 @@ function About({ handleNavigation }) {
                     <FaDownload className="text-xs sm:text-sm group-hover:animate-bounce drop-shadow-lg text-white" />
                     <span className="drop-shadow-lg text-white">Télécharger mon CV</span>
                     <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    {/* Effet de brillance animé */}
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-xl transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                   </a>
                 </div>
