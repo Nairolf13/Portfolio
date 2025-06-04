@@ -1,5 +1,27 @@
 /* Styles pour la section Contact - maintenant utilise .about-blur-bg comme les autres sections */
 
+/* Styles pour les champs de formulaire */
+.contact-form-field {
+  background-color: var(--bg-secondary) !important;
+  border: 2px solid var(--border-color) !important;
+  color: var(--text-primary) !important;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.contact-form-field::placeholder {
+  color: var(--text-muted) !important;
+}
+
+.contact-form-field:focus {
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 2px rgba(0, 255, 157, 0.2);
+}
+
+.contact-label {
+  color: var(--accent-color) !important;
+}
+
 @media (max-width: 768px) {
   #contact {
     margin-top: 5rem;

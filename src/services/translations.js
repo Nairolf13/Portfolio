@@ -68,6 +68,16 @@ export const translations = {
       title: "Contactez-moi",
       subtitle: "À l'écoute des besoins et force de proposition",
       description: "Actuellement à la recherche de nouvelles opportunités pour mettre mes compétences au service de projets ambitieux et contribuer à leur réussite.",
+      whyContact: "Pourquoi me contacter ?",
+      content: {
+        intro: "Passionné par la création d'expériences numériques modernes, je souhaite rejoindre une équipe dynamique pour contribuer à des projets innovants, en front-end, back-end ou fullstack.",
+        skills: "Développeur passionné créatif et méthodique",
+        listening: "À l'écoute des besoins et force de proposition", 
+        teamwork: "Esprit d'équipe, autonomie et communication professionnelle",
+        opportunity: "Vous avez une opportunité ?",
+        invitation: "N'hésitez pas à me solliciter pour un poste ou une collaboration sur vos projets.",
+        commitment: "Je m'engage à répondre rapidement et avec sérieux à chaque message."
+      },
       form: {
         name: "Nom",
         email: "Email", 
@@ -182,6 +192,16 @@ export const translations = {
       title: "Contact me",
       subtitle: "Listening to needs and solution-oriented",
       description: "Currently looking for new opportunities to put my skills at the service of ambitious projects and contribute to their success.",
+      whyContact: "Why contact me?",
+      content: {
+        intro: "Passionate about creating modern digital experiences, I want to join a dynamic team to contribute to innovative projects, in front-end, back-end or fullstack.",
+        skills: "Passionate creative and methodical developer",
+        listening: "Listening to needs and solution-oriented",
+        teamwork: "Team spirit, autonomy and professional communication",
+        opportunity: "Do you have an opportunity?",
+        invitation: "Don't hesitate to contact me for a position or collaboration on your projects.",
+        commitment: "I commit to responding quickly and seriously to every message."
+      },
       form: {
         name: "Name",
         email: "Email",

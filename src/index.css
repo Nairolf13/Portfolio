@@ -2,6 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Variables CSS pour les thèmes */
+:root {
+  /* Thème sombre (par défaut) */
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #1a1a1a;
+  --bg-blur: rgba(0, 3, 1, 0.70);
+  --bg-card: rgba(26, 26, 26, 0.8);
+  --text-primary: #ffffff;
+  --text-secondary: #e5e5e5;
+  --text-muted: #a0a0a0;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --accent-color: #00ff9d;
+  --accent-secondary: #3de6cb;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --header-backdrop: rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] {
+  /* Thème clair */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f9fa;
+  --bg-blur: rgba(248, 249, 250, 0.85);
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --text-primary: #1a1a1a;
+  --text-secondary: #2d3436;
+  --text-muted: #636e72;
+  --border-color: rgba(0, 0, 0, 0.8);
+  --accent-color: #00b894;
+  --accent-secondary: #00a085;
+  --shadow-color: rgba(0, 0, 0, 0.15);
+  --header-backdrop: rgba(255, 255, 255, 0.1);
+}
+
 html, body, #about {
   overflow-x: hidden;
 }
@@ -12,4 +45,45 @@ html {
 
 body {
   transition: all 0.3s ease-in-out;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Styles personnalisés pour les formulaires */
+input, textarea {
+  color: var(--text-primary) !important;
+  background-color: var(--bg-secondary) !important;
+  border: 2px solid var(--border-color) !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--text-muted) !important;
+}
+
+input:focus, textarea:focus {
+  outline-color: var(--accent-color) !important;
+  border-color: var(--accent-color) !important;
+}
+
+/* Styles pour les liens avec hover effect */
+a {
+  transition: color 0.3s ease;
+}
+
+/* Styles pour les animations heartbeat */
+.heartbeat-link {
+  color: var(--accent-color) !important;
+  animation: heartbeat 2s ease-in-out infinite;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

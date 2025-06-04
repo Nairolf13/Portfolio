@@ -1,16 +1,19 @@
+import { useLanguage } from "../LanguageContext";
 import "../Assets/css/Footer.css";
 
 function Footer() {
+  const { t } = useLanguage();
+  
   return (
     <footer className="footer">
       <div className="footer-container">
         <div className="footer-content">
           <p className="copyright">
-            © {new Date().getFullYear()} Bricchi Florian. Tous droits réservés.
+            © {new Date().getFullYear()} Bricchi Florian. {t('footer.rights')}
           </p>
           
           <p className="made-with-love">
-            Made with <span className="heart">❤️</span> by Bricchi Florian
+            {t('footer.madeWith')} <span className="heart">❤️</span> by Bricchi Florian
           </p>
           
           <div className="social-links">

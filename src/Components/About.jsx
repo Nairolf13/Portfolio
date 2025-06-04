@@ -1,21 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FaDownload } from "react-icons/fa";
+import { useLanguage } from "../LanguageContext";
 import "../Assets/css/About.css";
 
 function About({ handleNavigation }) {
-  const points = [
-    "Développeur web passionné, je conçois des expériences numériques modernes et intuitives.",
-    "Je suis polyvalent et j'aime concevoir des applications utiles et accessibles, avec une attention particulière à l'expérience utilisateur.",
-    "Je vois le web comme un moyen de créer du lien, de partager et de rendre service au quotidien.",
-    "Je crée des interfaces accessibles, humaines et techniquement solides.",
-    "Autonome et proactif, je prends plaisir à travailler sur des projets variés, seul ou en équipe.",
-    "Je suis constamment en veille pour innover, progresser et livrer des projets toujours plus aboutis.",
-    "Chaque projet est pour moi une opportunité d'apprendre et d'évoluer.",
-    "J'ai à cœur de transformer des idées en solutions concrètes et efficaces.",
-    "Ma rigueur et ma curiosité me poussent à dépasser les attentes à chaque réalisation.",
-    "Vous cherchez un développeur impliqué, créatif et fiable ?",
-  ];
+  const { t } = useLanguage();
+  const points = t('about.points');
 
   const sectionRef = useRef(null);
   const [glowTop, setGlowTop] = useState(0);
@@ -90,28 +81,47 @@ function About({ handleNavigation }) {
           <div className="w-full about-content overflow-hidden relative flex">
             <div className="flex-1 relative">
               <div className="w-full flex flex-col items-center mb-8 pt-8 pb-2">
-                <h2 className="text-3xl font-semibold text-white text-center font-orbitron">
-                  À propos de moi
+                <h2 
+                  className="text-3xl font-semibold text-center font-orbitron"
+                  style={{ color: 'var(--text-primary)' }}
+                >
+                  {t('about.title')}
                 </h2>
-                <div className="w-24 h-[2px] bg-[#00ff9d] mt-2"></div>
-                <div className="divide-y divide-[#222]/60 w-full overflow-hidden mt-8 px-2 sm:px-4 md:px-6 lg:px-8">
+                <div 
+                  className="w-24 h-[2px] mt-2"
+                  style={{ backgroundColor: 'var(--accent-color)' }}
+                ></div>
+                <div 
+                  className="divide-y w-full overflow-hidden mt-8 px-2 sm:px-4 md:px-6 lg:px-8"
+                  style={{ 
+                    borderColor: 'var(--border-color)'
+                  }}
+                >
                 {points.map((point, index) => (
                   <div key={index} className="flex items-center gap-6 py-8">
                     <div
-                      className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#23232b] border border-[#3de6cb] flex items-center justify-center text-[#e6f9f7] font-semibold text-lg"
-                      style={{ borderWidth: "1.5px" }}
+                      className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center font-semibold text-lg"
+                      style={{ 
+                        backgroundColor: 'var(--bg-secondary)',
+                        border: `1.5px solid var(--accent-secondary)`,
+                        color: 'var(--text-primary)'
+                      }}
                     >
                       {index + 1}
                     </div>
-                    <p className="text-white text-lg leading-relaxed text-left">
+                    <p 
+                      className="text-lg leading-relaxed text-left"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
                       {index === points.length - 1 ? (
                         <span>
                           {point}
                           <button 
                             onClick={() => handleNavigation && handleNavigation('contact')}
                             className="heartbeat-link ml-2 bg-transparent border-none cursor-pointer"
+                            style={{ color: 'var(--accent-color)' }}
                           >
-                            Parlons-en !
+                            {t('about.callToAction')}
                           </button>
                         </span>
                       ) : (
@@ -120,16 +130,35 @@ function About({ handleNavigation }) {
                     </p>
                   </div>
                 ))}
-                <div className="w-full h-px bg-[#222]/60" />
+                <div 
+                  className="w-full h-px"
+                  style={{ backgroundColor: 'var(--border-color)' }}
+                />
                 
                 <div className="w-full flex justify-center pt-12 pb-8">
                   <a 
                     href="/Portfolio/CV_Bricchi_Florian.pdf" 
                     download="CV_Florian_Bricchi.pdf"
-                    className="group relative inline-flex items-center gap-3 sm:gap-4 px-6 py-3 sm:px-8 sm:py-4 bg-gradient-to-r from-[#00ff9d] to-[#3de6cb] text-white font-bold rounded-xl shadow-2xl hover:shadow-[0_0_30px_rgba(61,230,203,0.5)] transform hover:scale-110 transition-all duration-500 ease-out font-orbitron text-xs sm:text-sm animate-pulse hover:animate-none border-2 border-white/20"
+                    className="group relative inline-flex items-center gap-3 sm:gap-4 px-6 py-3 sm:px-8 sm:py-4 font-bold rounded-xl transform hover:scale-110 transition-all duration-500 ease-out font-orbitron text-xs sm:text-sm animate-pulse hover:animate-none border-2"
+                    style={{
+                      background: `linear-gradient(to right, var(--accent-color), var(--accent-secondary))`,
+                      color: 'var(--text-primary)',
+                      borderColor: 'var(--border-color)',
+                      '&:hover': {
+                        boxShadow: '0 0 30px rgba(61,230,203,0.5)'
+                      }
+                    }}
                   >
-                    <FaDownload className="text-xs sm:text-sm group-hover:animate-bounce drop-shadow-lg text-white" />
-                    <span className="drop-shadow-lg text-white">Télécharger mon CV</span>
+                    <FaDownload 
+                      className="text-xs sm:text-sm group-hover:animate-bounce drop-shadow-lg"
+                      style={{ color: 'var(--text-primary)' }}
+                    />
+                    <span 
+                      className="drop-shadow-lg"
+                      style={{ color: 'var(--text-primary)' }}
+                    >
+                      {t('about.downloadCV')}
+                    </span>
                     <div className="absolute inset-0 bg-gradient-to-r from-white/20 to-white/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-xl transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
                   </a>
@@ -144,7 +173,10 @@ function About({ handleNavigation }) {
               transition={{ duration: 0.5 }}
               className="relative"
             >
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-[2px] bg-[#00ff9d]"></div>
+              <div 
+                className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-24 h-[2px]"
+                style={{ backgroundColor: 'var(--accent-color)' }}
+              ></div>
             </motion.div>
           </div>
         </div>

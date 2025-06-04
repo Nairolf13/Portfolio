@@ -1,4 +1,6 @@
 import { useState, useRef, useEffect } from "react";
+import { ThemeProvider, useTheme } from "./ThemeContext";
+import { LanguageProvider } from "./LanguageContext";
 import Home from "./Components/Home";
 import About from "./Components/About";
 import Projects from "./Components/Projects";
@@ -8,6 +10,7 @@ import Header from "./Components/Header";
 import Loader from "./Loader.jsx"; 
 
 function App() {
+  const { theme } = useTheme();
   const [currentSection, setCurrentSection] = useState("home");
   const vantaRef = useRef(null);
   const [vantaEffect, setVantaEffect] = useState(null);
@@ -21,7 +24,13 @@ function App() {
   };
 
   useEffect(() => {
-    if (!showLoader && !vantaEffect && vantaRef.current) {
+    if (!showLoader && vantaRef.current) {
+      // Détruire l'effet précédent s'il existe
+      if (vantaEffect) {
+        vantaEffect.destroy();
+        setVantaEffect(null);
+      }
+
       const loadVanta = async () => {
         if (!window.THREE) {
           const threeModule = await import('three');
@@ -44,6 +53,9 @@ function App() {
           });
         }
         if (window.VANTA && window.VANTA.BIRDS) {
+          // Configuration de la couleur de fond selon le thème (garder les couleurs des oiseaux originales)
+          const backgroundColor = theme === 'light' ? 0xf8f9fa : 0x07192f;
+
           const effect = window.VANTA.BIRDS({
             el: vantaRef.current,
             mouseControls: true,
@@ -53,9 +65,9 @@ function App() {
             minWidth: 200.0,
             scale: 1.0,
             scaleMobile: 1.0,
-            backgroundColor: 0x07192f,
-            color: 0xff3f81,
-            color2: 0xffffff,
+            backgroundColor: backgroundColor,
+            color: 0xff3f81,          // Couleur des oiseaux - inchangée
+            color2: 0xffffff,         // Couleur secondaire des oiseaux - inchangée
             separation: 60,        
             alignment: 40,        
             cohesion: 15,          
@@ -71,7 +83,7 @@ function App() {
         setVantaEffect(null);
       }
     };
-  }, [showLoader, vantaEffect]);
+  }, [showLoader, theme]); // Ajout de 'theme' aux dépendances
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -148,4 +160,14 @@ function App() {
   );
 }
 
-export default App;
+function AppWithProviders() {
+  return (
+    <ThemeProvider>
+      <LanguageProvider>
+        <App />
+      </LanguageProvider>
+    </ThemeProvider>
+  );
+}
+
+export default AppWithProviders;

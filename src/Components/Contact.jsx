@@ -1,8 +1,11 @@
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
+import { useLanguage } from "../LanguageContext";
 import Modal from "./Modal";
+import "../Assets/css/Contact.css";
 
 function Contact() {
+  const { t } = useLanguage();
   const form = useRef();
   const [modalState, setModalState] = useState({
     isOpen: false,
@@ -39,8 +42,8 @@ function Contact() {
           console.log("Message envoyé :", result.text);
           showModal(
             "success",
-            "Message envoyé !",
-            "Votre message a été envoyé avec succès. Je vous répondrai dans les plus brefs délais."
+            t('contact.modal.success.title'),
+            t('contact.modal.success.message')
           );
           form.current.reset();
         },
@@ -48,8 +51,8 @@ function Contact() {
           console.log("Erreur :", error.text);
           showModal(
             "error",
-            "Erreur d'envoi",
-            "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer ou me contacter directement par email."
+            t('contact.modal.error.title'),
+            t('contact.modal.error.message')
           );
         }
       );
@@ -62,48 +65,56 @@ function Contact() {
     >
       <div className="w-full flex justify-center">
         <div className="w-full max-w-7xl about-blur-bg rounded-xl p-4 sm:p-6 md:p-8 lg:p-20 flex flex-col items-center gap-8">
-          <h2 className="text-3xl font-semibold text-white rounded-xl px-6 py-3 font-orbitron mx-auto w-fit text-center mb-8">
-            Contactez-moi
+          <h2 
+            className="text-3xl font-semibold rounded-xl px-6 py-3 font-orbitron mx-auto w-fit text-center mb-8"
+            style={{ color: 'var(--text-primary)' }}
+          >
+            {t('contact.title')}
           </h2>
           
           <div className="w-full text-center mb-8">
-            <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
-              <strong className="text-green-400">
-                Actuellement à la recherche d'une alterance pour devenir
-                concepteur developpeur d'application ou d'un poste en CDI en
-                tant que Développeur Web
+            <p 
+              className="text-xl md:text-2xl leading-relaxed"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              <strong style={{ color: 'var(--accent-color)' }}>
+                {t('contact.description')}
               </strong>
             </p>
           </div>
           
           <div className="flex flex-col md:flex-row w-full gap-12 items-stretch">
             <div className="md:w-1/2 w-full flex flex-col justify-center items-center text-center">
-              <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
-                <span className="text-green-400 font-semibold">
-                  Pourquoi me contacter&nbsp;?
+              <p 
+                className="text-xl md:text-2xl leading-relaxed"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <span 
+                  className="font-semibold"
+                  style={{ color: 'var(--accent-color)' }}
+                >
+                  {t('contact.whyContact')}&nbsp;
                 </span>
                 <br />
-                Passionné par la création d’expériences numériques modernes, je
-                souhaite rejoindre une équipe dynamique pour contribuer à des
-                projets innovants, en front-end, back-end ou fullstack.
-                <br />
-                Développeur passionné créatif et méthodique
-                <br />
-                À l'écoute des besoins et force de proposition
-                <br />
-                Esprit d’équipe, autonomie et communication professionnelle
+                {t('contact.content.intro')}
                 <br />
                 <br />
-                <span className="text-green-400 font-semibold">
-                  Vous avez une opportunité&nbsp;?
+                {t('contact.content.skills')}
+                <br />
+                {t('contact.content.listening')}
+                <br />
+                {t('contact.content.teamwork')}
+                <br />
+                <br />
+                <span className="font-semibold" style={{ color: 'var(--accent-color)' }}>
+                  {t('contact.content.opportunity')}&nbsp;
                 </span>
                 <br />
-                N’hésitez pas à me solliciter pour un poste ou une collaboration sur vos projets .
+                {t('contact.content.invitation')}
                 <br />
                 <br />
                 <span className="italic">
-                  Je m’engage à répondre rapidement et avec sérieux à chaque
-                  message.
+                  {t('contact.content.commitment')}
                 </span>
               </p>
             </div>
@@ -114,52 +125,52 @@ function Contact() {
             >
               <div className="w-full flex flex-col gap-2">
                 <label
-                  className="text-green-500 font-semibold text-left"
+                  className="contact-label font-semibold text-left"
                   htmlFor="name"
                 >
-                  Nom
+                  {t('contact.form.name')}
                 </label>
                 <input
                   type="text"
                   id="name"
                   name="name"
                   required
-                  placeholder="Votre nom"
-                  className="rounded-lg px-3 py-4 w-full border-none bg-white/10 outline outline-2 outline-gray-600 focus:outline-green-500 text-black placeholder:text-gray-700"
+                  placeholder={t('contact.form.placeholder.name')}
+                  className="contact-form-field rounded-lg px-3 py-4 w-full transition-all duration-300"
                 />
               </div>
 
               <div className="w-full flex flex-col gap-2">
                 <label
-                  className="text-green-500 font-semibold text-left"
+                  className="contact-label font-semibold text-left"
                   htmlFor="email"
                 >
-                  Email
+                  {t('contact.form.email')}
                 </label>
                 <input
                   type="email"
                   id="email"
                   name="email"
                   required
-                  placeholder="Votre email"
-                  className="rounded-lg px-3 py-4 w-full border-none bg-white/10 outline outline-2 outline-gray-600 focus:outline-green-500 text-black placeholder:text-gray-700"
+                  placeholder={t('contact.form.placeholder.email')}
+                  className="contact-form-field rounded-lg px-3 py-4 w-full transition-all duration-300"
                 />
               </div>
 
               <div className="w-full flex flex-col gap-2">
                 <label
-                  className="text-green-500 font-semibold text-left"
+                  className="contact-label font-semibold text-left"
                   htmlFor="message"
                 >
-                  Message
+                  {t('contact.form.message')}
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   required
-                  placeholder="Votre message"
+                  placeholder={t('contact.form.placeholder.message')}
                   rows="5"
-                  className="rounded-lg px-3 py-4 w-full border-none bg-white/10 outline outline-2 outline-gray-600 focus:outline-green-500 text-black placeholder:text-gray-700"
+                  className="contact-form-field rounded-lg px-3 py-4 w-full transition-all duration-300"
                 ></textarea>
               </div>
 
@@ -171,9 +182,13 @@ function Contact() {
 
               <button
                 type="submit"
-                className="px-4 py-3 w-full flex items-center justify-center gap-2 rounded-full bg-green-600 text-[#efefef] font-semibold text-sm transition-all duration-300 hover:bg-green-500 hover:text-gray-700"
+                className="px-4 py-3 w-full flex items-center justify-center gap-2 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105"
+                style={{
+                  background: `linear-gradient(to right, var(--accent-color), var(--accent-secondary))`,
+                  color: 'var(--text-primary)'
+                }}
               >
-                Envoyer
+                {t('contact.form.send')}
               </button>
             </form>
           </div>

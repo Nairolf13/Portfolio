@@ -1,8 +1,13 @@
 import { useState } from "react";
 import { HiOutlineMenu, HiOutlineX, HiCog } from "react-icons/hi";
+import { HiSun, HiMoon } from "react-icons/hi";
+import { useTheme } from "../ThemeContext";
+import { useLanguage } from "../LanguageContext";
 import "../Assets/css/MenuBurger.css";
 
 function MenuBurger({ handleNavigation }) {
+  const { theme, toggleTheme } = useTheme();
+  const { language, changeLanguage, t } = useLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -10,14 +15,7 @@ function MenuBurger({ handleNavigation }) {
   const toggleSettings = () => setShowSettings(!showSettings);
 
   const sections = ["home", "about", "projects", "contact"];
-  const getLabel = (section) =>
-    section === "home"
-      ? "Accueil"
-      : section === "about"
-      ? "À propos"
-      : section === "projects"
-      ? "Projets"
-      : "Contact";
+  const getLabel = (section) => t(`nav.${section}`);
 
   return (
     <>
@@ -75,40 +73,83 @@ function MenuBurger({ handleNavigation }) {
             onClick={() => setShowSettings(false)}
           ></div>
           
-          <div className="relative mx-4 w-full max-w-md transform rounded-xl about-blur-bg border border-green-400 p-6 shadow-2xl modal-content">
-            <div className="flex justify-center mb-4">
-              <div className="bg-green-500 w-16 h-16 rounded-full flex items-center justify-center">
-                <HiCog className="text-white text-2xl" />
+          <div className="relative mx-4 w-full max-w-xs sm:max-w-md transform rounded-xl about-blur-bg border border-green-400 p-4 sm:p-6 shadow-2xl modal-content">
+            <div className="flex justify-center mb-3 sm:mb-4">
+              <div className="bg-green-500 w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center">
+                <HiCog className="text-white text-lg sm:text-2xl" />
               </div>
             </div>
             
             <div className="text-center">
-              <h3 className="text-xl font-semibold text-green-400 mb-6 font-orbitron">
-                Réglages
+              <h3 className="text-lg sm:text-xl font-semibold text-green-400 mb-4 sm:mb-6 font-orbitron">
+                {t('nav.settings')}
               </h3>
               
-              <div className="space-y-4 mb-6">
+              <div className="space-y-4 sm:space-y-6 mb-4 sm:mb-6">
+                {/* Sélecteur de langue avec drapeaux */}
                 <div>
-                  <label className="block text-white text-sm mb-2 text-left">Langue</label>
-                  <select className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-400 focus:outline-none transition-colors">
-                    <option value="fr">Français</option>
-                    <option value="en">English</option>
-                  </select>
+                  <label className="block text-xs sm:text-sm mb-2 sm:mb-3 text-center" style={{ color: 'var(--text-primary)' }}>{t('settings.language')}</label>
+                  <div className="flex justify-center gap-3 sm:gap-4">
+                    <button
+                      onClick={() => changeLanguage('fr')}
+                      className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-2xl sm:text-3xl transition-all duration-300 border-2 ${
+                        language === 'fr' 
+                          ? 'border-green-400 bg-green-500/20 scale-110' 
+                          : 'border-gray-600 hover:border-green-400 hover:scale-105'
+                      }`}
+                      title="Français"
+                    >
+                      🇫🇷
+                    </button>
+                    <button
+                      onClick={() => changeLanguage('en')}
+                      className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-2xl sm:text-3xl transition-all duration-300 border-2 ${
+                        language === 'en' 
+                          ? 'border-green-400 bg-green-500/20 scale-110' 
+                          : 'border-gray-600 hover:border-green-400 hover:scale-105'
+                      }`}
+                      title="English"
+                    >
+                      🇬🇧
+                    </button>
+                  </div>
                 </div>
+                
+                {/* Sélecteur de thème avec soleil/lune */}
                 <div>
-                  <label className="block text-white text-sm mb-2 text-left">Thème</label>
-                  <select className="w-full p-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:border-green-400 focus:outline-none transition-colors">
-                    <option value="dark">Sombre</option>
-                    <option value="light">Clair</option>
-                  </select>
+                  <label className="block text-xs sm:text-sm mb-2 sm:mb-3 text-center" style={{ color: 'var(--text-primary)' }}>{t('settings.theme')}</label>
+                  <div className="flex justify-center gap-3 sm:gap-4">
+                    <button
+                      onClick={() => theme !== 'light' && toggleTheme()}
+                      className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-lg sm:text-2xl transition-all duration-300 border-2 ${
+                        theme === 'light' 
+                          ? 'border-green-400 bg-green-500/20 scale-110' 
+                          : 'border-gray-600 hover:border-green-400 hover:scale-105'
+                      }`}
+                      title={t('settings.themes.light')}
+                    >
+                      <HiSun />
+                    </button>
+                    <button
+                      onClick={() => theme !== 'dark' && toggleTheme()}
+                      className={`w-12 h-12 sm:w-16 sm:h-16 rounded-full flex items-center justify-center text-lg sm:text-2xl transition-all duration-300 border-2 ${
+                        theme === 'dark' 
+                          ? 'border-green-400 bg-green-500/20 scale-110' 
+                          : 'border-gray-600 hover:border-green-400 hover:scale-105'
+                      }`}
+                      title={t('settings.themes.dark')}
+                    >
+                      <HiMoon />
+                    </button>
+                  </div>
                 </div>
               </div>
               
               <button
                 onClick={() => setShowSettings(false)}
-                className="px-6 py-3 rounded-full bg-green-500 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                className="px-4 py-2 sm:px-6 sm:py-3 rounded-full bg-green-500 text-white font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg text-sm sm:text-base"
               >
-                Fermer
+                {t('contact.modal.close')}
               </button>
             </div>
           </div>

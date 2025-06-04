@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import { useLanguage } from "../LanguageContext";
 import "../Assets/css/Projects.css";
 
 // Import dynamique de toutes les images .webp du dossier imgs
@@ -6,6 +7,7 @@ const images = import.meta.glob('../Assets/imgs/*.webp', { eager: true, as: 'url
 const getImg = (filename) => images[`../Assets/imgs/${filename}`];
 
 function Projects() {
+  const { t } = useLanguage();
   const [activeCard, setActiveCard] = useState(null);
   const cardsRef = useRef([]);
 
@@ -36,8 +38,11 @@ function Projects() {
     <section id="projects" className="p-4 md:p-8 lg:p-16 relative z-10">
       <div className="w-full flex justify-center">
         <div className="w-full max-w-7xl about-blur-bg px-2 sm:px-4 md:px-6 py-8 md:py-12 flex flex-col items-center">
-        <h2 className="text-3xl font-semibold text-center text-white mb-16 font-orbitron">
-          Projets 
+        <h2 
+          className="text-3xl font-semibold text-center mb-16 font-orbitron"
+          style={{ color: 'var(--text-primary)' }}
+        >
+          {t('projects.title')}
         </h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 justify-items-center w-full">
           {[

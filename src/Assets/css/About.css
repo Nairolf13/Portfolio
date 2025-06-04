@@ -39,7 +39,7 @@
     
     min-width: 1px;
     max-width: 4px;
-    background: black;
+    background: var(--text-muted);
     border-radius: 999px;
     margin: auto;
     position: relative;
@@ -56,11 +56,11 @@
     pointer-events: none;
     background: linear-gradient(
         to bottom,
-        rgb(0, 255, 0) 0%,
+        var(--accent-color) 0%,
         rgba(0,255,0,0.35) 10%,
         rgba(29, 85, 29, 0.85) 50%,
         rgba(0,255,0,0.35) 90%,
-        rgb(0, 255, 0) 100%
+        var(--accent-color) 100%
     );
     filter: blur(12px) brightness(2.5);
     z-index: 1;
@@ -82,11 +82,11 @@
 }
 
 .about-blur-bg {
-  background: rgba(0, 3, 1, 0.70);
+  background: var(--bg-blur);
   backdrop-filter: blur(2vw);
   -webkit-backdrop-filter: blur(2vw);
   border-radius: 1rem;
-  box-shadow: 0 0.5vw 2vw 0 rgba(0,0,0,0.18);
+  box-shadow: 0 0.5vw 2vw 0 var(--shadow-color);
   padding: 2vw;
   position: relative;
   margin: 0 !important;
