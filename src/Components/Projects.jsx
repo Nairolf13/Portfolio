@@ -59,7 +59,7 @@ function Projects() {
               title: "Absento",
               description:
                 "Site de gestion des absences et des planning pour les entreprises",
-              frontImage: getImg('AbsentoLending.webp'),
+              frontImage: getImg('AbsentoLanding.webp'),
               backImage: getImg('Absento.webp'),
               link: "http://51.91.208.111:5888/",
             },
@@ -70,30 +70,29 @@ function Projects() {
               frontImage: getImg('CineWaveCatalogue.webp'),
               backImage: getImg('CineWave.webp'),
               link: "https://nairolf13.github.io/CineWave/",
+            },  {
+              id: 3,
+              title: "Pharmacie du stade",
+              description: "Refonte visuelle et technique du site d'une pharmacie.",
+              frontImage: getImg('Pharma.webp'),
+              backImage: getImg('PharmaLanding.webp'),
+              link: "https://nairolf13.github.io/PharmacieDuStade/",
             },
             {
-              id: 3,
+              id: 4,
               title: "Padel Marseille",
               description: "Site de réservation pour un club de padel.",
               frontImage: getImg('PadelMarseille.webp'),
               backImage: getImg('banierePadel.webp'),
               link: "",
             },
-            {
-              id: 4,
+             {
+              id: 5,
               title: "Gamefolio",
               description: "Premier projet de portfolio en mode jeux vidéo 2D fonctionnel uniquement sur PC.",
               frontImage: getImg('GamefolioLanding.webp'),
               backImage: getImg('Gamefolio.webp'),
               link: "https://nairolf13.github.io/Gamefolio/",
-            },
-            {
-              id: 5,
-              title: "Absento",
-              description: "Description Site de gestion des absences et des planning pour les entreprises du projet.",
-              frontImage: getImg('AbsentoLending.webp'),
-              backImage: getImg('Absento.webp'),
-              link: "http://51.91.208.111:5888/",
             },
           ].map((project) => (
             <div
