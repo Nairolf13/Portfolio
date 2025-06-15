@@ -5,6 +5,7 @@ import '../Assets/css/Stack.css';
 const techLogos = import.meta.glob('../Assets/imgs/technologies/*', { eager: true });
 
 const getLogo = (filename) => {
+  const basePath = import.meta.env.PROD ? '/Portfolio' : '';
   const path = `../Assets/imgs/technologies/${filename}`;
   return techLogos[path]?.default || techLogos[path];
 };
@@ -20,14 +21,11 @@ const Stack = () => {
   const matrixIntervalRef = useRef(null);
   const animationFrameIds = useRef([]);
 
-  // Characters pour l'effet Matrix
   const matrixChars = '01アカサタナハマヤラワガザダバパイキシチニヒミイリウィギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメエレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-  // Créer l'effet Matrix
   const createMatrixRain = () => {
     const columns = Math.floor(window.innerWidth / 20);
 
-    // Nettoyer les anciennes colonnes et animations
     const existingColumns = document.querySelectorAll('.matrix-column');
     existingColumns.forEach(col => {
       if (col.stopAnimation) {
@@ -36,10 +34,8 @@ const Stack = () => {
       col.remove();
     });
     
-    // Réinitialiser les IDs d'animation
     animationFrameIds.current = [];
 
-    // Créer les nouvelles colonnes
     for (let i = 0; i < columns; i++) {
       const column = document.createElement('div');
       column.className = 'matrix-column';
@@ -47,7 +43,6 @@ const Stack = () => {
       
       document.body.appendChild(column);
       
-      // Faire tomber les caractères pour cette colonne avec un délai aléatoire
       setTimeout(() => {
         dropMatrixChars(column, i);
       }, Math.random() * 1000);
@@ -58,7 +53,6 @@ const Stack = () => {
     const chars = [];
     const maxChars = Math.floor(window.innerHeight / 18) + 10;
     
-    // Remplir la colonne de caractères
     for (let i = 0; i < maxChars; i++) {
       const char = document.createElement('span');
       char.className = 'matrix-char';
@@ -291,16 +285,17 @@ const Stack = () => {
           {/* Header avec animation de titre */}
           <div className="text-center mb-12">
             <h2 
-              className="text-3xl font-semibold text-center mb-8 font-orbitron cursor-pointer select-none hover:scale-105 transition-transform duration-300"
+              className="text-3xl font-semibold text-center mb-8 font-orbitron cursor-pointer select-none hover:scale-105 transition-transform duration-300 stack-title-mobile-hint"
               style={{ 
                 color: 'var(--text-primary)',
                 textShadow: matrixMode ? '0 0 10px var(--accent-color)' : 'none'
               }}
               onClick={handleTitleClick}
-              title="Triple-cliquez pour une surprise 😉"
+              title="🤔 Il y a quelque chose d'intrigant ici..."
             >
               {t('stack.title')}
             </h2>
+            
             <div 
               className="w-24 h-[2px] mx-auto mb-8"
               style={{ backgroundColor: 'var(--accent-color)' }}

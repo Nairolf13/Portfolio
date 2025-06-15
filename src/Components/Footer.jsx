@@ -89,6 +89,10 @@ function Footer() {
               </svg>
             </a>
           </div>
+          
+          <div className="easter-egg-hint">
+            💫 Des secrets se cachent dans l'exploration...
+          </div>
         </div>
       </div>
     </footer>
