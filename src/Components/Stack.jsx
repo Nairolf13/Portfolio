@@ -2,27 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useLanguage } from '../LanguageContext';
 import '../Assets/css/Stack.css';
 
-// Import des logos des technologies
-import reactLogo from '../Assets/imgs/technologies/react.svg';
-import jsLogo from '../Assets/imgs/technologies/javascript.svg';
-import html5Logo from '../Assets/imgs/technologies/html5.svg';
-import css3Logo from '../Assets/imgs/technologies/css3.svg';
-import tailwindLogo from '../Assets/imgs/technologies/Tailwind_CSS_Logo.svg';
-import sassLogo from '../Assets/imgs/technologies/sass.svg';
-import nodejsLogo from '../Assets/imgs/technologies/nodejs.svg';
-import expressLogo from '../Assets/imgs/technologies/express.svg';
-import phpLogo from '../Assets/imgs/technologies/php.svg';
-import mysqlLogo from '../Assets/imgs/technologies/mysql.svg';
-import postgresqlLogo from '../Assets/imgs/technologies/postgresql.svg';
-import mongodbLogo from '../Assets/imgs/technologies/mongodb.svg';
-import gitLogo from '../Assets/imgs/technologies/git.svg';
-import dockerLogo from '../Assets/imgs/technologies/docker.svg';
-import viteLogo from '../Assets/imgs/technologies/vite.svg';
-import linuxLogo from '../Assets/imgs/technologies/linux.svg';
-import figmaLogo from '../Assets/imgs/technologies/figma.svg';
-import gsapLogo from '../Assets/imgs/technologies/GSAP-Meta-image.webp';
-import framerLogo from '../Assets/imgs/technologies/framer.webp';
-import threejsLogo from '../Assets/imgs/technologies/threejs.svg';
+const techLogos = import.meta.glob('../Assets/imgs/technologies/*', { eager: true });
+
+const getLogo = (filename) => {
+  const path = `../Assets/imgs/technologies/${filename}`;
+  return techLogos[path]?.default || techLogos[path];
+};
 
 const Stack = () => {
   const { t } = useLanguage();
@@ -34,46 +19,46 @@ const Stack = () => {
     {
       category: 'Frontend',
       items: [
-        { name: 'React', level: 90, icon: reactLogo, color: '#61DAFB' },
-        { name: 'JavaScript', level: 95, icon: jsLogo, color: '#F7DF1E' },
-        { name: 'HTML5', level: 95, icon: html5Logo, color: '#E34F26' },
-        { name: 'CSS3', level: 90, icon: css3Logo, color: '#1572B6' },
-        { name: 'Tailwind CSS', level: 88, icon: tailwindLogo, color: '#06B6D4' },
-        { name: 'SCSS', level: 85, icon: sassLogo, color: '#CF649A' },
+        { name: 'React', level: 90, icon: getLogo('react.svg'), color: '#61DAFB' },
+        { name: 'JavaScript', level: 95, icon: getLogo('javascript.svg'), color: '#F7DF1E' },
+        { name: 'HTML5', level: 95, icon: getLogo('html5.svg'), color: '#E34F26' },
+        { name: 'CSS3', level: 90, icon: getLogo('css3.svg'), color: '#1572B6' },
+        { name: 'Tailwind CSS', level: 88, icon: getLogo('Tailwind_CSS_Logo.svg'), color: '#06B6D4' },
+        { name: 'SCSS', level: 85, icon: getLogo('sass.svg'), color: '#CF649A' },
       ]
     },
     {
       category: 'Backend',
       items: [
-        { name: 'Node.js', level: 85, icon: nodejsLogo, color: '#339933' },
-        { name: 'Express', level: 80, icon: expressLogo, color: '#FFFFFF' },
-        { name: 'PHP', level: 88, icon: phpLogo, color: '#777BB4' },
+        { name: 'Node.js', level: 85, icon: getLogo('nodejs.svg'), color: '#339933' },
+        { name: 'Express', level: 80, icon: getLogo('express.svg'), color: '#FFFFFF' },
+        { name: 'PHP', level: 88, icon: getLogo('php.svg'), color: '#777BB4' },
       ]
     },
     {
       category: 'Database',
       items: [
-        { name: 'MySQL', level: 85, icon: mysqlLogo, color: '#4479A1' },
-        { name: 'PostgreSQL', level: 80, icon: postgresqlLogo, color: '#336791' },
-        { name: 'MongoDB', level: 75, icon: mongodbLogo, color: '#47A248' },
+        { name: 'MySQL', level: 85, icon: getLogo('mysql.svg'), color: '#4479A1' },
+        { name: 'PostgreSQL', level: 80, icon: getLogo('postgresql.svg'), color: '#336791' },
+        { name: 'MongoDB', level: 75, icon: getLogo('mongodb.svg'), color: '#47A248' },
       ]
     },
     {
       category: 'Tools & DevOps',
       items: [
-        { name: 'Git', level: 90, icon: gitLogo, color: '#F05032' },
-        { name: 'Docker', level: 75, icon: dockerLogo, color: '#2496ED' },
-        { name: 'Vite', level: 85, icon: viteLogo, color: '#646CFF' },
-        { name: 'Linux', level: 80, icon: linuxLogo, color: '#FCC624' },
+        { name: 'Git', level: 90, icon: getLogo('git.svg'), color: '#F05032' },
+        { name: 'Docker', level: 75, icon: getLogo('docker.svg'), color: '#2496ED' },
+        { name: 'Vite', level: 85, icon: getLogo('vite.svg'), color: '#646CFF' },
+        { name: 'Linux', level: 80, icon: getLogo('linux.svg'), color: '#FCC624' },
       ]
     },
     {
       category: 'Design & Animation',
       items: [
-        { name: 'Figma', level: 85, icon: figmaLogo, color: '#F24E1E' },
-        { name: 'GSAP', level: 80, icon: gsapLogo, color: '#88CE02' },
-        { name: 'Framer Motion', level: 85, icon: framerLogo, color: '#0055FF' },
-        { name: 'Three.js', level: 75, icon: threejsLogo, color: '#FFFFFF' },
+        { name: 'Figma', level: 85, icon: getLogo('figma.svg'), color: '#F24E1E' },
+        { name: 'GSAP', level: 80, icon: getLogo('GSAP-Meta-image.webp'), color: '#88CE02' },
+        { name: 'Framer Motion', level: 85, icon: getLogo('framer.webp'), color: '#0055FF' },
+        { name: 'Three.js', level: 75, icon: getLogo('threejs.svg'), color: '#FFFFFF' },
       ]
     }
   ];
@@ -211,30 +196,6 @@ const Stack = () => {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Section statistiques */}
-          <div className="stats-section mt-16 w-full">
-            <div className="stats-grid grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-4xl mx-auto">
-              <div className="stat-card">
-                <div className="stat-number text-3xl md:text-4xl font-bold" style={{ color: 'var(--accent-color)' }}>
-                  {technologies.reduce((total, category) => total + category.items.length, 0)}+
-                </div>
-                <div className="stat-label text-base md:text-lg opacity-80" style={{ color: 'var(--text-primary)' }}>{t('stack.stats.technologies')}</div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-number text-3xl md:text-4xl font-bold" style={{ color: 'var(--accent-color)' }}>
-                  2+
-                </div>
-                <div className="stat-label text-base md:text-lg opacity-80" style={{ color: 'var(--text-primary)' }}>{t('stack.stats.years')}</div>
-              </div>
-              <div className="stat-card">
-                <div className="stat-number text-3xl md:text-4xl font-bold" style={{ color: 'var(--accent-color)' }}>
-                  22
-                </div>
-                <div className="stat-label text-base md:text-lg opacity-80" style={{ color: 'var(--text-primary)' }}>{t('stack.stats.projects')}</div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
