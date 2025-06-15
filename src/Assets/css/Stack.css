@@ -64,7 +64,6 @@
   backdrop-filter: blur(10px);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   overflow: hidden;
-  cursor: pointer;
   transform: translateY(20px);
   opacity: 0;
   animation: cardSlideIn 0.6s ease-out var(--delay) forwards;
@@ -358,6 +357,70 @@
   font-size: 1rem;
   opacity: 0.8;
   font-weight: 500;
+}
+
+/* Easter Egg: Matrix Rain Mode */
+.matrix-column {
+  position: fixed;
+  top: -100px;
+  color: var(--accent-color);
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  line-height: 18px;
+  text-shadow: 0 0 8px var(--accent-color);
+  pointer-events: none;
+  white-space: pre;
+  z-index: 9999;
+  opacity: 0.9;
+}
+
+.matrix-char {
+  display: block;
+  color: var(--accent-color);
+}
+
+@keyframes matrixFall {
+  from {
+    transform: translateY(-100px);
+  }
+  to {
+    transform: translateY(calc(100vh + 100px));
+  }
+}
+
+.matrix-mode .tech-card {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 20px rgba(0, 184, 148, 0.3);
+}
+
+.matrix-mode .tech-particles {
+  opacity: 1 !important;
+}
+
+/* Animation pour la notification */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Effet de clignotement pour indiquer l'easter egg */
+.stack-title-hint {
+  animation: subtleGlow 3s ease-in-out infinite;
+}
+
+@keyframes subtleGlow {
+  0%, 100% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(0, 184, 148, 0.3);
+  }
 }
 
 @media (max-width: 768px) {

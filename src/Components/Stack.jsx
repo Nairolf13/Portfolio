@@ -5,7 +5,17 @@ import '../Assets/css/Stack.css';
 const techLogos = import.meta.glob('../Assets/imgs/technologies/*', { eager: true });
 
 const getLogo = (filename) => {
-  const path = `../Assets/imgs/technologies/${filename}`;
+  const path = `../Asset            <h2 
+              className="text-3xl font-semibold text-center mb-8 font-orbitron cursor-pointer select-none hover:scale-105 transition-transform duration-300"
+              style={{ 
+                color: 'var(--text-primary)',
+                textShadow: matrixMode ? '0 0 10px var(--accent-color)' : 'none'
+              }}
+              onClick={handleTitleClick}
+              title="🤔 Il y a quelque chose d'intrigant ici..."
+            >
+              {t('stack.title')}
+            </h2>nologies/${filename}`;
   return techLogos[path]?.default || techLogos[path];
 };
 
@@ -13,7 +23,185 @@ const Stack = () => {
   const { t } = useLanguage();
   const [hoveredTech, setHoveredTech] = useState(null);
   const [visibleTechs, setVisibleTechs] = useState([]);
+  const [matrixMode, setMatrixMode] = useState(false);
   const stackRef = useRef(null);
+  const clickCountRef = useRef(0);
+  const clickTimerRef = useRef(null);
+  const matrixIntervalRef = useRef(null);
+  const animationFrameIds = useRef([]);
+
+  // Characters pour l'effet Matrix
+  const matrixChars = '01アカサタナハマヤラワガザダバパイキシチニヒミイリウィギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメエレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  // Créer l'effet Matrix
+  const createMatrixRain = () => {
+    const columns = Math.floor(window.innerWidth / 20);
+
+    // Nettoyer les anciennes colonnes et animations
+    const existingColumns = document.querySelectorAll('.matrix-column');
+    existingColumns.forEach(col => {
+      if (col.stopAnimation) {
+        col.stopAnimation();
+      }
+      col.remove();
+    });
+    
+    // Réinitialiser les IDs d'animation
+    animationFrameIds.current = [];
+
+    // Créer les nouvelles colonnes
+    for (let i = 0; i < columns; i++) {
+      const column = document.createElement('div');
+      column.className = 'matrix-column';
+      column.style.left = `${i * 20}px`;
+      
+      document.body.appendChild(column);
+      
+      // Faire tomber les caractères pour cette colonne avec un délai aléatoire
+      setTimeout(() => {
+        dropMatrixChars(column, i);
+      }, Math.random() * 1000);
+    }
+  };
+
+  const dropMatrixChars = (column, index) => {
+    const chars = [];
+    const maxChars = Math.floor(window.innerHeight / 18) + 10;
+    
+    // Remplir la colonne de caractères
+    for (let i = 0; i < maxChars; i++) {
+      const char = document.createElement('span');
+      char.className = 'matrix-char';
+      char.textContent = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+      char.style.opacity = Math.max(0, 1 - (i * 0.05));
+      chars.push(char);
+      column.appendChild(char);
+    }
+
+    // Animer la colonne
+    let position = -maxChars * 18 - (Math.random() * 1000); // Position initiale aléatoire
+    const speed = 1 + Math.random() * 4; // Vitesse entre 1 et 5
+    let isRunning = true;
+
+    const animateColumn = () => {
+      if (!isRunning) return;
+      
+      position += speed;
+      column.style.transform = `translateY(${position}px)`;
+      
+      // Changer quelques caractères aléatoirement
+      if (Math.random() < 0.05) {
+        const randomIndex = Math.floor(Math.random() * chars.length);
+        if (chars[randomIndex]) {
+          chars[randomIndex].textContent = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+        }
+      }
+      
+      // Réinitialiser la colonne quand elle sort de l'écran
+      if (position > window.innerHeight + 200) {
+        position = -maxChars * 18 - (Math.random() * 500);
+        chars.forEach(char => {
+          char.textContent = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+        });
+      }
+      
+      const frameId = requestAnimationFrame(animateColumn);
+      animationFrameIds.current[index] = frameId;
+    };
+    
+    // Stopper l'animation si matrixMode devient false
+    column.stopAnimation = () => {
+      isRunning = false;
+      if (animationFrameIds.current[index]) {
+        cancelAnimationFrame(animationFrameIds.current[index]);
+      }
+    };
+    
+    // Démarrer l'animation
+    requestAnimationFrame(animateColumn);
+  };
+
+  // Gestion du triple-clic sur le titre
+  const handleTitleClick = () => {
+    clickCountRef.current += 1;
+    
+    if (clickTimerRef.current) {
+      clearTimeout(clickTimerRef.current);
+    }
+    
+    if (clickCountRef.current === 3) {
+      // Triple-clic détecté !
+      toggleMatrixMode();
+      clickCountRef.current = 0;
+    } else {
+      // Reset après 500ms si pas de triple-clic
+      clickTimerRef.current = setTimeout(() => {
+        clickCountRef.current = 0;
+      }, 500);
+    }
+  };
+
+  const toggleMatrixMode = () => {
+    setMatrixMode(!matrixMode);
+    
+    if (!matrixMode) {
+      // Activer le mode Matrix
+      setTimeout(() => {
+        createMatrixRain();
+      }, 100);
+      
+      console.log(`
+🎯 EASTER EGG ACTIVÉ ! 
+▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+█ 🔥 MODE MATRIX ACTIVÉ ! Félicitations développeur ! 🔥 █
+▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+      `);
+    } else {
+      // Désactiver le mode Matrix
+      const columns = document.querySelectorAll('.matrix-column');
+      columns?.forEach(col => {
+        if (col.stopAnimation) {
+          col.stopAnimation();
+        }
+        col.remove();
+      });
+      
+      // Nettoyer tous les animation frames
+      animationFrameIds.current.forEach(id => {
+        if (id) cancelAnimationFrame(id);
+      });
+      animationFrameIds.current = [];
+    }
+    
+    // Notification visuelle
+    const notification = document.createElement('div');
+    notification.style.cssText = `
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--bg-blur);
+      color: var(--accent-color);
+      padding: 15px 20px;
+      border-radius: 10px;
+      border: 1px solid var(--accent-color);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      font-family: 'Courier New', monospace;
+      box-shadow: 0 0 20px rgba(0, 184, 148, 0.3);
+      animation: slideInRight 0.5s ease-out;
+    `;
+    notification.innerHTML = matrixMode ? 
+      '🎯 Mode Matrix désactivé' : 
+      '🔥 Mode Matrix activé !<br><small>Tu as trouvé l\'easter egg !</small>';
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+      if (notification.parentNode) {
+        notification.remove();
+      }
+    }, 3000);
+  };
 
   const technologies = [
     {
@@ -84,6 +272,21 @@ const Stack = () => {
     return () => observer.disconnect();
   }, []);
 
+  // Message console au montage du composant
+  useEffect(() => {
+    // Éviter les doublons en mode développement React
+    if (!window.stackEasterEggLogged) {
+      console.log(`
+🎯 Portfolio Bricchi Florian 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💭 "Les secrets se révèlent à ceux qui persistent..." 
+🔍 Parfois, la répétition d'un simple clic révèle des mystères cachés...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      `);
+      window.stackEasterEggLogged = true;
+    }
+  }, []);
+
   const getExperienceText = (level) => {
     if (level >= 90) return { text: t('stack.expert'), class: 'expert' };
     if (level >= 80) return { text: t('stack.advanced'), class: 'advanced' };
@@ -98,8 +301,13 @@ const Stack = () => {
           {/* Header avec animation de titre */}
           <div className="text-center mb-12">
             <h2 
-              className="text-3xl font-semibold text-center mb-8 font-orbitron"
-              style={{ color: 'var(--text-primary)' }}
+              className="text-3xl font-semibold text-center mb-8 font-orbitron cursor-pointer select-none hover:scale-105 transition-transform duration-300"
+              style={{ 
+                color: 'var(--text-primary)',
+                textShadow: matrixMode ? '0 0 10px var(--accent-color)' : 'none'
+              }}
+              onClick={handleTitleClick}
+              title="Triple-cliquez pour une surprise 😉"
             >
               {t('stack.title')}
             </h2>
@@ -113,7 +321,7 @@ const Stack = () => {
           </div>
 
           {/* Grille des technologies */}
-          <div className="space-y-12 w-full">
+          <div className={`space-y-12 w-full ${matrixMode ? 'matrix-mode' : ''}`}>
             {technologies.map((category, categoryIndex) => (
               <div
                 key={category.category}
@@ -184,10 +392,13 @@ const Stack = () => {
                           </div>
                         </div>
 
-                        {/* Particules flottantes */}
+                        {/* Particules flottantes - plus de Matrix */}
                         <div className="tech-particles">
-                          {[...Array(6)].map((_, i) => (
-                            <div key={i} className={`tech-particle tech-particle-${i + 1}`}></div>
+                          {!matrixMode && [...Array(6)].map((_, i) => (
+                            <div 
+                              key={i} 
+                              className={`tech-particle tech-particle-${i + 1}`}
+                            ></div>
                           ))}
                         </div>
                       </div>
