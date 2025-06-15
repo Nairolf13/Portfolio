@@ -5,17 +5,7 @@ import '../Assets/css/Stack.css';
 const techLogos = import.meta.glob('../Assets/imgs/technologies/*', { eager: true });
 
 const getLogo = (filename) => {
-  const path = `../Asset            <h2 
-              className="text-3xl font-semibold text-center mb-8 font-orbitron cursor-pointer select-none hover:scale-105 transition-transform duration-300"
-              style={{ 
-                color: 'var(--text-primary)',
-                textShadow: matrixMode ? '0 0 10px var(--accent-color)' : 'none'
-              }}
-              onClick={handleTitleClick}
-              title="🤔 Il y a quelque chose d'intrigant ici..."
-            >
-              {t('stack.title')}
-            </h2>nologies/${filename}`;
+  const path = `../Assets/imgs/technologies/${filename}`;
   return techLogos[path]?.default || techLogos[path];
 };
 
