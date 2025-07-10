@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="framerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D4FF"/>
+      <stop offset="50%" style="stop-color:#0099FF"/>
+      <stop offset="100%" style="stop-color:#0055FF"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with iOS-style rounded corners -->
+  <rect width="512" height="512" rx="115" ry="115" fill="url(#framerGradient)"/>
+  
+  <!-- Framer logo - exact recreation of the F shape -->
+  <g fill="white">
+    <!-- Top rectangle of the F -->
+    <path d="M128 128 L384 128 L384 192 L256 192 L384 320 L256 320 L256 384 L128 256 L128 192 L256 192 L128 128 Z"/>
+  </g>
+</svg>

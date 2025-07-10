@@ -91,7 +91,7 @@ function Footer() {
           </div>
           
           <div className="easter-egg-hint">
-            💫 Des secrets se cachent dans l'exploration...
+            {t('footer.easterEggHint')}
           </div>
         </div>
       </div>

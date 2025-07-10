@@ -53,7 +53,6 @@ function MenuBurger({ handleNavigation }) {
                   </button>
                 </li>
               ))}
-              {/* Bouton réglages */}
               <li className="li mb-0 w-full border-t border-gray-600 pt-2 mt-2">
                 <button
                   onClick={toggleSettings}
@@ -67,7 +66,6 @@ function MenuBurger({ handleNavigation }) {
         )}
       </div>
 
-      {/* Panneau de réglages */}
       {showSettings && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center modal-overlay">
           <div 
@@ -88,7 +86,6 @@ function MenuBurger({ handleNavigation }) {
               </h3>
               
               <div className="space-y-4 sm:space-y-6 mb-4 sm:mb-6">
-                {/* Sélecteur de langue avec drapeaux */}
                 <div>
                   <label className="block text-xs sm:text-sm mb-2 sm:mb-3 text-center" style={{ color: 'var(--text-primary)' }}>{t('settings.language')}</label>
                   <div className="flex justify-center gap-3 sm:gap-4">
@@ -117,7 +114,6 @@ function MenuBurger({ handleNavigation }) {
                   </div>
                 </div>
                 
-                {/* Sélecteur de thème avec soleil/lune */}
                 <div>
                   <label className="block text-xs sm:text-sm mb-2 sm:mb-3 text-center" style={{ color: 'var(--text-primary)' }}>{t('settings.theme')}</label>
                   <div className="flex justify-center gap-3 sm:gap-4">
@@ -170,7 +166,6 @@ function MenuBurger({ handleNavigation }) {
               </button>
             </li>
           ))}
-          {/* Bouton réglages pour desktop */}
           <li className="li">
             <button
               onClick={toggleSettings}

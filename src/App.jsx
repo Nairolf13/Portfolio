@@ -39,7 +39,6 @@ function App() {
         if (!window.VANTA || !window.VANTA.BIRDS) {
           await new Promise((resolve, reject) => {
             const script = document.createElement('script');
-            // Correction du chemin pour GitHub Pages (détection manuelle)
             let vantaPath = '/vanta/vanta.birds.min.js';
             if (window.location.hostname === 'nairolf13.github.io') {
               vantaPath = '/Portfolio/vanta/vanta.birds.min.js';
@@ -116,7 +115,7 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowLoader(false), 3000); 
+    const timer = setTimeout(() => setShowLoader(false), 1000); 
     return () => clearTimeout(timer);
   }, []);
 

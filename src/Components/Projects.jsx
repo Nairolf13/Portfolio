@@ -2,7 +2,6 @@ import { useEffect, useState, useRef } from "react";
 import { useLanguage } from "../LanguageContext";
 import "../Assets/css/Projects.css";
 
-// Import dynamique de toutes les images .webp du dossier imgs
 const images = import.meta.glob('../Assets/imgs/*.webp', { eager: true, as: 'url' });
 const getImg = (filename) => images[`../Assets/imgs/${filename}`];
 

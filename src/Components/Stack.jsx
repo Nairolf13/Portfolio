@@ -15,11 +15,14 @@ const Stack = () => {
   const [hoveredTech, setHoveredTech] = useState(null);
   const [visibleTechs, setVisibleTechs] = useState([]);
   const [matrixMode, setMatrixMode] = useState(false);
+  const [mobileClickCount, setMobileClickCount] = useState(0);
+  const [showMobileFeedback, setShowMobileFeedback] = useState(false);
   const stackRef = useRef(null);
   const clickCountRef = useRef(0);
   const clickTimerRef = useRef(null);
   const matrixIntervalRef = useRef(null);
   const animationFrameIds = useRef([]);
+  const mobileFeedbackTimerRef = useRef(null);
 
   const matrixChars = '01アカサタナハマヤラワガザダバパイキシチニヒミイリウィギジヂビピウクスツヌフムユルグズヅブプエケセテネヘメエレヱゲゼデベペオコソトノホモヨロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
@@ -62,9 +65,8 @@ const Stack = () => {
       column.appendChild(char);
     }
 
-    // Animer la colonne
-    let position = -maxChars * 18 - (Math.random() * 1000); // Position initiale aléatoire
-    const speed = 1 + Math.random() * 4; // Vitesse entre 1 et 5
+    let position = -maxChars * 18 - (Math.random() * 1000); 
+    const speed = 1 + Math.random() * 4;
     let isRunning = true;
 
     const animateColumn = () => {
@@ -73,7 +75,6 @@ const Stack = () => {
       position += speed;
       column.style.transform = `translateY(${position}px)`;
       
-      // Changer quelques caractères aléatoirement
       if (Math.random() < 0.05) {
         const randomIndex = Math.floor(Math.random() * chars.length);
         if (chars[randomIndex]) {
@@ -81,7 +82,6 @@ const Stack = () => {
         }
       }
       
-      // Réinitialiser la colonne quand elle sort de l'écran
       if (position > window.innerHeight + 200) {
         position = -maxChars * 18 - (Math.random() * 500);
         chars.forEach(char => {
@@ -93,7 +93,6 @@ const Stack = () => {
       animationFrameIds.current[index] = frameId;
     };
     
-    // Stopper l'animation si matrixMode devient false
     column.stopAnimation = () => {
       isRunning = false;
       if (animationFrameIds.current[index]) {
@@ -101,27 +100,61 @@ const Stack = () => {
       }
     };
     
-    // Démarrer l'animation
     requestAnimationFrame(animateColumn);
   };
 
-  // Gestion du triple-clic sur le titre
   const handleTitleClick = () => {
     clickCountRef.current += 1;
+    
+    const isMobile = window.innerWidth <= 768 || 
+                     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                     'ontouchstart' in window;
+    
+    console.log('🔍 Click détecté:', {
+      clickCount: clickCountRef.current,
+      isMobile,
+      windowWidth: window.innerWidth,
+      userAgent: navigator.userAgent
+    });
     
     if (clickTimerRef.current) {
       clearTimeout(clickTimerRef.current);
     }
     
     if (clickCountRef.current === 3) {
-      // Triple-clic détecté !
+      console.log('🎯 Triple-clic détecté ! Activation Matrix');
       toggleMatrixMode();
       clickCountRef.current = 0;
+      if (isMobile) {
+        setMobileClickCount(0);
+        setShowMobileFeedback(false);
+        if (mobileFeedbackTimerRef.current) {
+          clearTimeout(mobileFeedbackTimerRef.current);
+        }
+      }
     } else {
-      // Reset après 500ms si pas de triple-clic
+      if (isMobile) {
+        console.log('📱 Feedback mobile activé - Click:', clickCountRef.current);
+        setMobileClickCount(clickCountRef.current);
+        setShowMobileFeedback(true);
+        
+        if (mobileFeedbackTimerRef.current) {
+          clearTimeout(mobileFeedbackTimerRef.current);
+        }
+        
+        mobileFeedbackTimerRef.current = setTimeout(() => {
+          setShowMobileFeedback(false);
+          console.log('📱 Feedback mobile masqué automatiquement');
+        }, 2500);
+      }
+      
       clickTimerRef.current = setTimeout(() => {
         clickCountRef.current = 0;
-      }, 500);
+        if (isMobile) {
+          setMobileClickCount(0);
+          setShowMobileFeedback(false);
+        }
+      }, 800);
     }
   };
 
@@ -129,19 +162,17 @@ const Stack = () => {
     setMatrixMode(!matrixMode);
     
     if (!matrixMode) {
-      // Activer le mode Matrix
       setTimeout(() => {
         createMatrixRain();
       }, 100);
       
       console.log(`
-🎯 EASTER EGG ACTIVÉ ! 
+🎯 ${t('stack.easterEgg.activated')} 
 ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-█ 🔥 MODE MATRIX ACTIVÉ ! Félicitations développeur ! 🔥 █
+█ 🔥 ${t('stack.easterEgg.matrixActivated')} 🔥 █
 ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
       `);
     } else {
-      // Désactiver le mode Matrix
       const columns = document.querySelectorAll('.matrix-column');
       columns?.forEach(col => {
         if (col.stopAnimation) {
@@ -150,14 +181,12 @@ const Stack = () => {
         col.remove();
       });
       
-      // Nettoyer tous les animation frames
       animationFrameIds.current.forEach(id => {
         if (id) cancelAnimationFrame(id);
       });
       animationFrameIds.current = [];
     }
     
-    // Notification visuelle
     const notification = document.createElement('div');
     notification.style.cssText = `
       position: fixed;
@@ -175,8 +204,8 @@ const Stack = () => {
       animation: slideInRight 0.5s ease-out;
     `;
     notification.innerHTML = matrixMode ? 
-      '🎯 Mode Matrix désactivé' : 
-      '🔥 Mode Matrix activé !<br><small>Tu as trouvé l\'easter egg !</small>';
+      `🎯 ${t('stack.easterEgg.matrixDisabled')}` : 
+      `🔥 ${t('stack.easterEgg.matrixEnabled')}<br><small>${t('stack.easterEgg.foundSecret')}</small>`;
     
     document.body.appendChild(notification);
     
@@ -191,46 +220,46 @@ const Stack = () => {
     {
       category: 'Frontend',
       items: [
-        { name: 'React', level: 90, icon: getLogo('react.svg'), color: '#61DAFB' },
-        { name: 'JavaScript', level: 95, icon: getLogo('javascript.svg'), color: '#F7DF1E' },
-        { name: 'HTML5', level: 95, icon: getLogo('html5.svg'), color: '#E34F26' },
-        { name: 'CSS3', level: 90, icon: getLogo('css3.svg'), color: '#1572B6' },
-        { name: 'Tailwind CSS', level: 88, icon: getLogo('Tailwind_CSS_Logo.svg'), color: '#06B6D4' },
-        { name: 'SCSS', level: 85, icon: getLogo('sass.svg'), color: '#CF649A' },
+        { name: 'React', icon: getLogo('react.svg'), color: '#61DAFB' },
+        { name: 'JavaScript', icon: getLogo('javascript.svg'), color: '#F7DF1E' },
+        { name: 'HTML5', icon: getLogo('html5.svg'), color: '#E34F26' },
+        { name: 'CSS3', icon: getLogo('css3.svg'), color: '#1572B6' },
+        { name: 'Tailwind CSS', icon: getLogo('Tailwind_CSS_Logo.svg'), color: '#06B6D4' },
+        { name: 'SCSS', icon: getLogo('sass.svg'), color: '#CF649A' },
       ]
     },
     {
       category: 'Backend',
       items: [
-        { name: 'Node.js', level: 85, icon: getLogo('nodejs.svg'), color: '#339933' },
-        { name: 'Express', level: 80, icon: getLogo('express.svg'), color: '#FFFFFF' },
-        { name: 'PHP', level: 88, icon: getLogo('php.svg'), color: '#777BB4' },
+        { name: 'Node.js', icon: getLogo('nodejs.svg'), color: '#339933' },
+        { name: 'Express', icon: getLogo('express.svg'), color: '#FFFFFF' },
+        { name: 'PHP',  icon: getLogo('php.svg'), color: '#777BB4' },
       ]
     },
     {
       category: 'Database',
       items: [
-        { name: 'MySQL', level: 85, icon: getLogo('mysql.svg'), color: '#4479A1' },
-        { name: 'PostgreSQL', level: 80, icon: getLogo('postgresql.svg'), color: '#336791' },
-        { name: 'MongoDB', level: 75, icon: getLogo('mongodb.svg'), color: '#47A248' },
+        { name: 'MySQL', icon: getLogo('mysql.svg'), color: '#4479A1' },
+        { name: 'PostgreSQL', icon: getLogo('postgresql.svg'), color: '#336791' },
+        { name: 'MongoDB', icon: getLogo('mongodb.svg'), color: '#47A248' },
       ]
     },
     {
       category: 'Tools & DevOps',
       items: [
-        { name: 'Git', level: 90, icon: getLogo('git.svg'), color: '#F05032' },
-        { name: 'Docker', level: 75, icon: getLogo('docker.svg'), color: '#2496ED' },
-        { name: 'Vite', level: 85, icon: getLogo('vite.svg'), color: '#646CFF' },
-        { name: 'Linux', level: 80, icon: getLogo('linux.svg'), color: '#FCC624' },
+        { name: 'Git', icon: getLogo('git.svg'), color: '#F05032' },
+        { name: 'Docker', icon: getLogo('docker.svg'), color: '#2496ED' },
+        { name: 'Vite', icon: getLogo('vite.svg'), color: '#646CFF' },
+        { name: 'Linux',icon: getLogo('linux.svg'), color: '#FCC624' },
       ]
     },
     {
       category: 'Design & Animation',
       items: [
-        { name: 'Figma', level: 85, icon: getLogo('figma.svg'), color: '#F24E1E' },
-        { name: 'GSAP', level: 80, icon: getLogo('GSAP-Meta-image.webp'), color: '#88CE02' },
-        { name: 'Framer Motion', level: 85, icon: getLogo('framer.webp'), color: '#0055FF' },
-        { name: 'Three.js', level: 75, icon: getLogo('threejs.svg'), color: '#FFFFFF' },
+        { name: 'Figma', icon: getLogo('figma.svg'), color: '#F24E1E' },
+        { name: 'GSAP', icon: getLogo('GSAP-Meta-image.webp'), color: '#88CE02' },
+        { name: 'Framer Motion', icon: getLogo('framer.webp'), color: '#0055FF' },
+        { name: 'Three.js', icon: getLogo('threejs.svg'), color: '#FFFFFF' },
       ]
     }
   ];
@@ -256,19 +285,41 @@ const Stack = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Message console au montage du composant
   useEffect(() => {
-    // Éviter les doublons en mode développement React
     if (!window.stackEasterEggLogged) {
       console.log(`
 🎯 Portfolio Bricchi Florian 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-💭 "Les secrets se révèlent à ceux qui persistent..." 
-🔍 Parfois, la répétition d'un simple clic révèle des mystères cachés...
+💭 "${t('stack.easterEgg.consoleHint1')}" 
+🔍 ${t('stack.easterEgg.consoleHint2')}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       `);
       window.stackEasterEggLogged = true;
     }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (clickTimerRef.current) {
+        clearTimeout(clickTimerRef.current);
+      }
+      if (mobileFeedbackTimerRef.current) {
+        clearTimeout(mobileFeedbackTimerRef.current);
+      }
+      if (matrixIntervalRef.current) {
+        clearInterval(matrixIntervalRef.current);
+      }
+      animationFrameIds.current.forEach(id => {
+        if (id) cancelAnimationFrame(id);
+      });
+      const columns = document.querySelectorAll('.matrix-column');
+      columns?.forEach(col => {
+        if (col.stopAnimation) {
+          col.stopAnimation();
+        }
+        col.remove();
+      });
+    };
   }, []);
 
   const getExperienceText = (level) => {
@@ -282,7 +333,6 @@ const Stack = () => {
     <section id="stack" className="p-4 md:p-8 lg:p-16 relative z-10" ref={stackRef}>
       <div className="w-full flex justify-center">
         <div className="w-full max-w-7xl about-blur-bg px-2 sm:px-4 md:px-6 py-8 md:py-12 flex flex-col items-center">
-          {/* Header avec animation de titre */}
           <div className="text-center mb-12">
             <h2 
               className="text-3xl font-semibold text-center mb-8 font-orbitron cursor-pointer select-none hover:scale-105 transition-transform duration-300 stack-title-mobile-hint"
@@ -291,7 +341,7 @@ const Stack = () => {
                 textShadow: matrixMode ? '0 0 10px var(--accent-color)' : 'none'
               }}
               onClick={handleTitleClick}
-              title="🤔 Il y a quelque chose d'intrigant ici..."
+              title={t('stack.easterEgg.titleHint')}
             >
               {t('stack.title')}
             </h2>
@@ -305,7 +355,6 @@ const Stack = () => {
             </p>
           </div>
 
-          {/* Grille des technologies */}
           <div className={`space-y-12 w-full ${matrixMode ? 'matrix-mode' : ''}`}>
             {technologies.map((category, categoryIndex) => (
               <div
@@ -331,13 +380,10 @@ const Stack = () => {
                         onMouseEnter={() => setHoveredTech(`${categoryIndex}-${techIndex}`)}
                         onMouseLeave={() => setHoveredTech(null)}
                       >
-                        {/* Background animé */}
                         <div className="tech-bg"></div>
                         <div className="tech-glow"></div>
                         
-                        {/* Contenu de la carte */}
                         <div className="tech-content relative z-10 p-4 md:p-6">
-                          {/* Icon et nom */}
                           <div className="tech-header mb-4">
                             <div className="tech-icon mb-2 group-hover:scale-110 transition-transform duration-300">
                               <img 
@@ -352,7 +398,6 @@ const Stack = () => {
                             </h4>
                           </div>
 
-                          {/* Barre de progression */}
                           <div className="tech-progress mb-4">
                             <div className="progress-bg">
                               <div 
@@ -363,21 +408,13 @@ const Stack = () => {
                                 }}
                               ></div>
                             </div>
-                            <div className="progress-text">
-                              <span className={`experience-badge ${experience.class}`}>
-                                {experience.text}
-                              </span>
-                              <span className="level-percentage" style={{ color: tech.color }}>{tech.level}%</span>
-                            </div>
                           </div>
 
-                          {/* Effet de hover */}
                           <div className="tech-hover-effect">
                             <div className="hover-ripple"></div>
                           </div>
                         </div>
 
-                        {/* Particules flottantes - plus de Matrix */}
                         <div className="tech-particles">
                           {!matrixMode && [...Array(6)].map((_, i) => (
                             <div 
@@ -393,6 +430,64 @@ const Stack = () => {
               </div>
             ))}
           </div>
+
+          {process.env.NODE_ENV === 'development' && (
+            <div className="fixed top-4 left-4 bg-black text-white p-2 rounded z-50">
+              <p>Debug - Mobile: {String(window.innerWidth <= 768)}</p>
+              <p>ClickCount: {mobileClickCount}</p>
+              <p>ShowFeedback: {String(showMobileFeedback)}</p>
+            </div>
+          )}
+
+          {showMobileFeedback && (
+            <div className="mobile-feedback-overlay fixed inset-0 pointer-events-none z-40">
+              <div className="mobile-feedback absolute bottom-8 left-1/2 transform -translate-x-1/2 pointer-events-auto">
+                <div 
+                  className="feedback-card px-6 py-3 rounded-xl backdrop-blur-lg border shadow-lg transition-all duration-300"
+                  style={{
+                    background: 'var(--bg-blur)',
+                    borderColor: 'var(--accent-color)',
+                    color: 'var(--text-primary)',
+                    boxShadow: '0 0 20px rgba(0, 184, 148, 0.2)'
+                  }}
+                >
+                  <div className="flex items-center space-x-2">
+                    <span className="feedback-icon text-lg">
+                      {mobileClickCount === 1 && '🤔'}
+                      {mobileClickCount === 2 && '😏'}
+                    </span>
+                    <p className="feedback-text text-sm font-medium">
+                      {mobileClickCount === 1 && t('stack.easterEgg.mobileFeedback.firstClick')}
+                      {mobileClickCount === 2 && t('stack.easterEgg.mobileFeedback.secondClick')}
+                    </p>
+                  </div>
+                  
+                  <div className="progress-hint mt-2 h-1 bg-gray-300 rounded-full overflow-hidden">
+                    <div 
+                      className="h-full transition-all duration-300 rounded-full"
+                      style={{ 
+                        width: `${(mobileClickCount / 3) * 100}%`,
+                        backgroundColor: 'var(--accent-color)'
+                      }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {process.env.NODE_ENV === 'development' && (
+            <div 
+              className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-blue-500 text-white p-4 rounded-lg"
+              style={{ minWidth: '200px' }}
+            >
+              <p className="text-center text-sm">
+                {mobileClickCount === 1 && t('stack.easterEgg.mobileFeedback.testFirst')}
+                {mobileClickCount === 2 && t('stack.easterEgg.mobileFeedback.testSecond')}
+                {mobileClickCount === 0 && t('stack.easterEgg.mobileFeedback.testDefault')}
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </section>

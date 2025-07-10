@@ -120,7 +120,8 @@ export const translations = {
     footer: {
       rights: "Tous droits réservés.",
       madeWith: "Fait avec",
-      and: "et"
+      and: "et",
+      easterEggHint: "💫 Des secrets se cachent dans l'exploration..."
     },
 
     stack: {
@@ -141,6 +142,23 @@ export const translations = {
         technologies: "Technologies",
         years: "Années d'expérience",
         projects: "Projets réalisés"
+      },
+      easterEgg: {
+        titleHint: "🤔 Il y a quelque chose d'intrigant ici...",
+        consoleHint1: "Les secrets se révèlent à ceux qui persistent...",
+        consoleHint2: "Parfois, la répétition d'un simple clic révèle des mystères cachés...",
+        activated: "EASTER EGG ACTIVÉ !",
+        matrixActivated: "MODE MATRIX ACTIVÉ ! Félicitations développeur !",
+        matrixEnabled: "Mode Matrix activé !",
+        matrixDisabled: "Mode Matrix désactivé",
+        foundSecret: "Tu as trouvé l'easter egg !",
+        mobileFeedback: {
+          firstClick: "Intéressant...",
+          secondClick: "Vous y êtes presque...",
+          testFirst: "Premier clic détecté!",
+          testSecond: "Deuxième clic! Encore un...",
+          testDefault: "Feedback de test - Cliquez sur le titre!"
+        }
       }
     }
   },
@@ -266,7 +284,8 @@ export const translations = {
     footer: {
       rights: "All rights reserved.",
       madeWith: "Made with",
-      and: "and"
+      and: "and",
+      easterEggHint: "💫 Secrets hide in exploration..."
     },
 
     stack: {
@@ -286,7 +305,24 @@ export const translations = {
       stats: {
         technologies: "Technologies",
         years: "Years of experience",
-        projects: "Projects completed"
+        projects: "Completed projects"
+      },
+      easterEgg: {
+        titleHint: "🤔 There's something intriguing here...",
+        consoleHint1: "Secrets reveal themselves to those who persist...",
+        consoleHint2: "Sometimes, repeating a simple click reveals hidden mysteries...",
+        activated: "EASTER EGG ACTIVATED!",
+        matrixActivated: "MATRIX MODE ACTIVATED! Congratulations developer!",
+        matrixEnabled: "Matrix mode enabled!",
+        matrixDisabled: "Matrix mode disabled",
+        foundSecret: "You found the easter egg!",
+        mobileFeedback: {
+          firstClick: "Interesting...",
+          secondClick: "You're almost there...",
+          testFirst: "First click detected!",
+          testSecond: "Second click! One more...",
+          testDefault: "Test feedback - Click on the title!"
+        }
       }
     }
   }
